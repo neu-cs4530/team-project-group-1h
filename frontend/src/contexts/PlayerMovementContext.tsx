@@ -1,5 +1,5 @@
 import React from 'react';
-import { ServerPlayer } from '../classes/Player';
+import { ServerPlayer } from '../classes/Player/Player';
 
 export type PlayerMovementCallback = (playerMoved: ServerPlayer) => void;
 

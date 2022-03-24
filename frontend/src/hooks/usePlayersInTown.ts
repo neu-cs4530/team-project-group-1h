@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { useContext } from 'react';
-import Player from '../classes/Player';
+import Player from '../classes/Player/Player';
 import PlayersInTownContext from '../contexts/PlayersInTownContext';
 
 export default function usePlayersInTown(): Player[] {
