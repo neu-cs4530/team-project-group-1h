@@ -1,6 +1,8 @@
 export default class Player {
   public location?: UserLocation;
 
+  public appearance?: PlayerAppearance;
+
   private readonly _id: string;
 
   private readonly _userName: string;
@@ -37,4 +39,12 @@ export type UserLocation = {
   rotation: Direction,
   moving: boolean,
   conversationLabel?: string
+};
+
+export type PlayerAppearance = {
+  hair: number;
+  body: number;
+  shirt: number;
+  pants: number;
+  shoes: number;
 };
