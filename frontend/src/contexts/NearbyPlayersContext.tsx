@@ -1,5 +1,5 @@
 import React from 'react';
-import Player from '../classes/Player';
+import Player from '../classes/Player/Player';
 
 /**
  * Hint: You will never need to use this directly. Instead, use the
