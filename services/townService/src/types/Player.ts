@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import { ServerConversationArea } from '../client/TownsServiceClient';
 import { UserLocation } from '../CoveyTypes';
+import { PlayerAppearance } from './PlayerAppearance';
 
 /**
  * Each user who is connected to a town is represented by a Player object
@@ -8,6 +9,9 @@ import { UserLocation } from '../CoveyTypes';
 export default class Player {
   /** The current location of this user in the world map * */
   public location: UserLocation;
+
+  /** The player's selected appearance */
+  public appearance?: PlayerAppearance;
 
   /** The unique identifier for this player * */
   private readonly _id: string;
@@ -47,13 +51,13 @@ export default class Player {
 
   /**
    * Checks to see if a player's location is within the specified conversation area
-   * 
+   *
    * This method is resilient to floating point errors that could arise if any of the coordinates of
    * `this.location` are dramatically smaller than those of the conversation area's bounding box.
-   * @param conversation 
-   * @returns 
+   * @param conversation
+   * @returns
    */
-  isWithin(conversation: ServerConversationArea) : boolean {
+  isWithin(conversation: ServerConversationArea): boolean {
     return (
       this.location.x > conversation.boundingBox.x - conversation.boundingBox.width / 2 &&
       this.location.x < conversation.boundingBox.x + conversation.boundingBox.width / 2 &&

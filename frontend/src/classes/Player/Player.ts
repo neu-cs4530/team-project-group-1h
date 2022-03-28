@@ -1,6 +1,8 @@
 export default class Player {
   public location?: UserLocation;
 
+  public appearance?: PlayerAppearance;
+
   private readonly _id: string;
 
   private readonly _userName: string;
@@ -9,10 +11,11 @@ export default class Player {
 
   public label?: Phaser.GameObjects.Text;
 
-  constructor(id: string, userName: string, location: UserLocation) {
+  constructor(id: string, userName: string, location: UserLocation, appearance?: PlayerAppearance) {
     this._id = id;
     this._userName = userName;
     this.location = location;
+    this.appearance = appearance;
   }
 
   get userName(): string {
@@ -24,12 +27,12 @@ export default class Player {
   }
 
   static fromServerPlayer(playerFromServer: ServerPlayer): Player {
-    return new Player(playerFromServer._id, playerFromServer._userName, playerFromServer.location);
+    return new Player(playerFromServer._id, playerFromServer._userName, playerFromServer.location, playerFromServer.appearance);
   }
 }
-export type ServerPlayer = { _id: string, _userName: string, location: UserLocation };
+export type ServerPlayer = { _id: string, _userName: string, location: UserLocation, appearance?: PlayerAppearance };
 
-export type Direction = 'front'|'back'|'left'|'right';
+export type Direction = 'front' | 'back' | 'left' | 'right';
 
 export type UserLocation = {
   x: number,
@@ -37,4 +40,12 @@ export type UserLocation = {
   rotation: Direction,
   moving: boolean,
   conversationLabel?: string
+};
+
+export type PlayerAppearance = {
+  hair: number;
+  body: number;
+  shirt: number;
+  pants: number;
+  shoes: number;
 };
