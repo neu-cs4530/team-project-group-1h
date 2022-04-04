@@ -44,10 +44,10 @@ export default function AppearanceSelectorModal ( {isOpen, closeModal} : Appeara
               <AppearanceItemGroup name="hair" defaultId="0" options={Object.entries(playerAppearances.hair)}/>
 
               <Heading as='h2' size='md'>Shirt</Heading>
-              <AppearanceItemGroup name="shirt" defaultId="2" options={Object.entries(playerAppearances.shirt)}/>
+              <AppearanceItemGroup name="shirt" defaultId="3" options={Object.entries(playerAppearances.shirt)}/>
 
               <Heading as='h2' size='md'>Pants</Heading>
-              <AppearanceItemGroup name="pants" defaultId="3" options={Object.entries(playerAppearances.pants)}/>
+              <AppearanceItemGroup name="pants" defaultId="2" options={Object.entries(playerAppearances.pants)}/>
 
               <Heading as='h2' size='md'>Skin Tone</Heading>
               <AppearanceItemGroup name="skin" defaultId="4" options={Object.entries(playerAppearances.skin)}/>

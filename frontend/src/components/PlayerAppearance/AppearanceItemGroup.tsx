@@ -13,7 +13,7 @@ type AppearanceItemGroupProps = {
 }
 export default function AppearanceItemGroup ( {name, options, defaultId} : AppearanceItemGroupProps): JSX.Element {
 
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(defaultId);
 
   const {getRootProps, getRadioProps} = useRadioGroup({
     name,
