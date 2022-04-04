@@ -1,7 +1,7 @@
 import {
   Button,
-  FormControl,
-  FormLabel,
+  SimpleGrid,
+  FormLabel, Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -11,7 +11,8 @@ import {
   ModalOverlay
 } from '@chakra-ui/react';
 import React from 'react';
-import playerAppearances from "../../classes/Player/PlayerAppearances";
+import playerAppearances, {AppearancePart} from "../../classes/Player/PlayerAppearances";
+import AppearanceItem from "./AppearanceItem";
 
 type AppearanceSelectorModalProps = {
   isOpen: boolean;
@@ -22,7 +23,7 @@ export default function AppearanceSelectorModal ( {isOpen, closeModal} : Appeara
     // save the selections
     closeModal();
   }
-  const parts = Object.keys(playerAppearances);
+  const parts = Object.entries(playerAppearances);
 
 
   const handleCloseModal = () => {
@@ -40,12 +41,25 @@ export default function AppearanceSelectorModal ( {isOpen, closeModal} : Appeara
             ev.preventDefault();
           }}>
           <ModalBody pb={6}>
-            <FormControl>
-               {parts.map(
-                (part : string) =>
-                  <FormLabel key={part}>{part && part[0].toUpperCase() + part.slice(1)}</FormLabel>)
-               }
-            </FormControl>
+            <Heading as='h2' size='md'>Hair</Heading>
+            <SimpleGrid columns={2} spacing={10}>
+              {Object.entries(playerAppearances.hair).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
+            </SimpleGrid>
+
+            <Heading as='h2' size='md'>Shirt</Heading>
+            <SimpleGrid columns={2} spacing={10}>
+              {Object.entries(playerAppearances.shirt).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
+            </SimpleGrid>
+
+            <Heading as='h2' size='md'>Pants</Heading>
+            <SimpleGrid columns={2} spacing={10}>
+              {Object.entries(playerAppearances.pants).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
+            </SimpleGrid>
+
+            <Heading as='h2' size='md'>Skin Tone</Heading>
+            <SimpleGrid columns={2} spacing={10}>
+              {Object.entries(playerAppearances.skin).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
+            </SimpleGrid>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={handleCloseModalConfirm}>

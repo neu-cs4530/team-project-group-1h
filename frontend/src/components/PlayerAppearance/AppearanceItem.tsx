@@ -5,15 +5,18 @@ import React from 'react';
 import playerAppearances, {AppearancePart} from "../../classes/Player/PlayerAppearances";
 
 type AppearanceItemProps = {
-  index: number;
+  id: string;
   part: AppearancePart;
 }
-export default function AppearanceItem ( {index, part} : AppearanceItemProps): JSX.Element {
+export default function AppearanceItem ( {id, part} : AppearanceItemProps): JSX.Element {
   const handleClick = () => {
     // handle saving of this part
+    console.log(part.name);
   }
   return (
-    <button isHidden onClick={handleClick}/>
+    <Button variant="text" size="small" onClick={handleClick}>
+      <img src={`assets/atlas/${part.spriteNamePrefix}misa-front.png`} alt={part.name} width="50"/>
+    </Button>
   );
 }
 
