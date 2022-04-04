@@ -23,7 +23,7 @@ import useVideoContext from '../VideoCall/VideoFrontend/hooks/useVideoContext/us
 import Video from '../../classes/Video/Video';
 import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClient';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
-import AppearanceModal from "./AppearanceModal";
+import AppearanceModal from "../PlayerAppearance/AppearanceModal";
 import {PlayerAppearance} from "../../classes/Player/Player";
 
 interface TownSelectionProps {
