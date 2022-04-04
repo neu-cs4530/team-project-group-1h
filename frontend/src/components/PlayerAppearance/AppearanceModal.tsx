@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react"
 import {PlayerAppearance} from "../../classes/Player/Player";
 import playerAppearances from "../../classes/Player/PlayerAppearances";
+import AppearanceItemGroup from "./AppearanceItemGroup";
 
 interface AppearanceModalProps {
   /**
@@ -45,16 +46,16 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
         <p>Current appearance: {JSON.stringify(appearance)}</p>
 
         <Heading as='h2' size='md'>Hair</Heading>
-        {Object.entries(playerAppearances.hair).map(([id, part]) => <p key={id}>{part.name}</p>)}
+        <AppearanceItemGroup name="hair" defaultId="0" options={Object.entries(playerAppearances.hair)}/>
 
         <Heading as='h2' size='md'>Shirt</Heading>
-        {Object.entries(playerAppearances.shirt).map(([id, part]) => <p key={id}>{part.name}</p>)}
+        <AppearanceItemGroup name="shirt" defaultId="0" options={Object.entries(playerAppearances.shirt)}/>
 
         <Heading as='h2' size='md'>Pants</Heading>
-        {Object.entries(playerAppearances.pants).map(([id, part]) => <p key={id}>{part.name}</p>)}
+        <AppearanceItemGroup name="pants" defaultId="0" options={Object.entries(playerAppearances.pants)}/>
 
         <Heading as='h2' size='md'>Skin Tone</Heading>
-        {Object.entries(playerAppearances.skin).map(([id, part]) => <p key={id}>{part.name}</p>)}
+        <AppearanceItemGroup name="skin" defaultId="0" options={Object.entries(playerAppearances.skin)}/>
       </ModalBody>
 
       <ModalFooter>
