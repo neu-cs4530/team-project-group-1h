@@ -9,6 +9,7 @@ type AppearanceItemProps = {
   id: string;
   part: AppearancePart;
 }
+// const {value, ref, isChecked, onChange} = getRadioProps({value: id})
 export default function AppearanceItem ( {id, part, ...props} : AppearanceItemProps): JSX.Element {
   const { getInputProps, getCheckboxProps } = useRadio(props)
 
