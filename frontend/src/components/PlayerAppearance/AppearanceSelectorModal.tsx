@@ -1,7 +1,7 @@
 import {
   Button,
   SimpleGrid,
-  FormLabel, Heading,
+  FormControl , Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,6 +13,7 @@ import {
 import React from 'react';
 import playerAppearances, {AppearancePart} from "../../classes/Player/PlayerAppearances";
 import AppearanceItem from "./AppearanceItem";
+import AppearanceItemGroup from "./AppearanceItemGroup";
 
 type AppearanceSelectorModalProps = {
   isOpen: boolean;
@@ -41,25 +42,19 @@ export default function AppearanceSelectorModal ( {isOpen, closeModal} : Appeara
             ev.preventDefault();
           }}>
           <ModalBody pb={6}>
-            <Heading as='h2' size='md'>Hair</Heading>
-            <SimpleGrid columns={2} spacing={10}>
-              {Object.entries(playerAppearances.hair).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
-            </SimpleGrid>
+            <FormControl>
+              <Heading as='h2' size='md'>Hair</Heading>
+              <AppearanceItemGroup options={Object.entries(playerAppearances.hair)}/>
 
-            <Heading as='h2' size='md'>Shirt</Heading>
-            <SimpleGrid columns={2} spacing={10}>
+              <Heading as='h2' size='md'>Shirt</Heading>
               {Object.entries(playerAppearances.shirt).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
-            </SimpleGrid>
 
-            <Heading as='h2' size='md'>Pants</Heading>
-            <SimpleGrid columns={2} spacing={10}>
+              <Heading as='h2' size='md'>Pants</Heading>
               {Object.entries(playerAppearances.pants).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
-            </SimpleGrid>
 
-            <Heading as='h2' size='md'>Skin Tone</Heading>
-            <SimpleGrid columns={2} spacing={10}>
+              <Heading as='h2' size='md'>Skin Tone</Heading>
               {Object.entries(playerAppearances.skin).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
-            </SimpleGrid>
+            </FormControl>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={handleCloseModalConfirm}>

@@ -1,22 +1,43 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
-  Button
+  Box, useRadio
 } from '@chakra-ui/react';
 import React from 'react';
-import playerAppearances, {AppearancePart} from "../../classes/Player/PlayerAppearances";
+import {AppearancePart} from "../../classes/Player/PlayerAppearances";
 
 type AppearanceItemProps = {
   id: string;
   part: AppearancePart;
 }
-export default function AppearanceItem ( {id, part} : AppearanceItemProps): JSX.Element {
-  const handleClick = () => {
-    // handle saving of this part
-    console.log(part.name);
-  }
+export default function AppearanceItem ( {id, part, ...props} : AppearanceItemProps): JSX.Element {
+  const { getInputProps, getCheckboxProps } = useRadio(props)
+
+  const input = getInputProps()
+  const checkbox = getCheckboxProps()
+
   return (
-    <Button variant="text" size="small" onClick={handleClick}>
-      <img src={`assets/atlas/${part.spriteNamePrefix}misa-front.png`} alt={part.name} width="50"/>
-    </Button>
+    <Box as='label'>
+      <input  {...input} />
+      <Box
+        {...checkbox}
+        cursor='pointer'
+        borderWidth='1px'
+        borderRadius='md'
+        boxShadow='md'
+        _checked={{
+          bg: 'teal.600',
+          color: 'white',
+          borderColor: 'teal.600',
+        }}
+        _focus={{
+          boxShadow: 'outline',
+        }}
+        px={5}
+        py={3}
+      >
+        <img src={`assets/atlas/${part.spriteNamePrefix}misa-front.png`} alt={part.name} width="50"/>
+      </Box>
+    </Box>
   );
 }
 
