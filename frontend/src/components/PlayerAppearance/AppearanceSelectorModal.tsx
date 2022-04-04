@@ -11,8 +11,7 @@ import {
   ModalOverlay
 } from '@chakra-ui/react';
 import React from 'react';
-import playerAppearances, {AppearancePart} from "../../classes/Player/PlayerAppearances";
-import AppearanceItem from "./AppearanceItem";
+import playerAppearances from "../../classes/Player/PlayerAppearances";
 import AppearanceItemGroup from "./AppearanceItemGroup";
 
 type AppearanceSelectorModalProps = {
@@ -24,8 +23,6 @@ export default function AppearanceSelectorModal ( {isOpen, closeModal} : Appeara
     // save the selections
     closeModal();
   }
-  const parts = Object.entries(playerAppearances);
-
 
   const handleCloseModal = () => {
     // save the selections
@@ -44,16 +41,16 @@ export default function AppearanceSelectorModal ( {isOpen, closeModal} : Appeara
           <ModalBody pb={6}>
             <FormControl>
               <Heading as='h2' size='md'>Hair</Heading>
-              <AppearanceItemGroup options={Object.entries(playerAppearances.hair)}/>
+              <AppearanceItemGroup name="hair" defaultId="0" options={Object.entries(playerAppearances.hair)}/>
 
               <Heading as='h2' size='md'>Shirt</Heading>
-              {Object.entries(playerAppearances.shirt).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
+              <AppearanceItemGroup name="shirt" defaultId="2" options={Object.entries(playerAppearances.shirt)}/>
 
               <Heading as='h2' size='md'>Pants</Heading>
-              {Object.entries(playerAppearances.pants).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
+              <AppearanceItemGroup name="pants" defaultId="3" options={Object.entries(playerAppearances.pants)}/>
 
               <Heading as='h2' size='md'>Skin Tone</Heading>
-              {Object.entries(playerAppearances.skin).map(([id, part]) => <AppearanceItem key={id} id={id} part={part}/>)}
+              <AppearanceItemGroup name="skin" defaultId="4" options={Object.entries(playerAppearances.skin)}/>
             </FormControl>
           </ModalBody>
           <ModalFooter>

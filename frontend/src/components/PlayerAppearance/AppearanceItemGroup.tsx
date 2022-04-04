@@ -7,25 +7,24 @@ import playerAppearances, {AppearancePart} from "../../classes/Player/PlayerAppe
 import AppearanceItem from "./AppearanceItem";
 
 type AppearanceItemGroupProps = {
-  options: [id: string, part: AppearancePart][]
+  name: string,
+  options: [id: string, part: AppearancePart][],
+  defaultId: string
 }
-export default function AppearanceItemGroup ( {options} : AppearanceItemGroupProps): JSX.Element {
+export default function AppearanceItemGroup ( {name, options, defaultId} : AppearanceItemGroupProps): JSX.Element {
 
   const {getRootProps, getRadioProps} = useRadioGroup({
-    name: 'framework',
-    defaultValue: 'react',
+    name,
+    defaultValue: defaultId,
     onChange: console.log,
   })
   const group = getRootProps()
 
   return (
     <HStack  {...group}>
-      {options.map(([id, part]) => {
-        const radio = getRadioProps({id})
-        return (
-          <AppearanceItem key={id} id={id} part={part} {...radio}/>
-        )
-      })}
+      {options.map(([id, part]) =>
+          <AppearanceItem key={id} id={id} part={part} {...getRadioProps({id})}/>
+        )}
     </HStack>
   );
 }
