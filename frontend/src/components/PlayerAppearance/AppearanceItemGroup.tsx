@@ -28,6 +28,5 @@ export default function AppearanceItemGroup({part, value, onChange}: AppearanceI
         .map(([id, appearancePart]) =>
           <AppearanceItem key={id} part={appearancePart} radioProps={getRadioProps({value: id})} />)}
     </HStack>
-    <Text paddingY={2}>Selected value: {value}</Text>
   </>;
 }

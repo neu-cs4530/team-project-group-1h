@@ -1,4 +1,4 @@
-import React, {useReducer} from "react";
+import React, {useEffect, useReducer, useRef} from "react";
 import {
   Button, Heading,
   Modal,
@@ -45,6 +45,23 @@ function appearanceReducer(state: PlayerAppearance, action: Partial<PlayerAppear
 export default function AppearanceModal({isOpen, onClose, appearance, onAppearanceUpdated}: AppearanceModalProps) {
   const [currentAppearance, updateCurrentAppearance] = useReducer(appearanceReducer, appearance);
 
+  const previousIsOpen = useRef(isOpen);
+  useEffect(() => {
+    if (isOpen && !previousIsOpen.current) {
+      updateCurrentAppearance(appearance);
+    }
+    previousIsOpen.current = isOpen;
+  }, [
+    isOpen,
+    // Technically, this appearance dependency is not desired, but we include it anyways to satisfy the linter
+    appearance
+  ]);
+
+  function handleSave() {
+    onAppearanceUpdated(currentAppearance);
+    onClose();
+  }
+
   return <Modal isOpen={isOpen} onClose={onClose}>
     <ModalOverlay/>
     <ModalContent>
@@ -52,8 +69,6 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
       <ModalCloseButton/>
 
       <ModalBody>
-        <p>Current appearance: {JSON.stringify(appearance)}</p>
-
         <Heading as='h2' size='md'>Hair</Heading>
         <AppearanceItemGroup part="hair" value={currentAppearance.hair} onChange={(hair) => updateCurrentAppearance({hair})}/>
 
@@ -68,7 +83,8 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
       </ModalBody>
 
       <ModalFooter>
-        <Button colorScheme='blue' onClick={onClose}>Close</Button>
+        <Button onClick={onClose} mr={3}>Cancel</Button>
+        <Button colorScheme='blue' onClick={() => handleSave()}>Save</Button>
       </ModalFooter>
     </ModalContent>
   </Modal>
