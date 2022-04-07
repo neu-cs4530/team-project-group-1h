@@ -46,16 +46,16 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
         <p>Current appearance: {JSON.stringify(appearance)}</p>
 
         <Heading as='h2' size='md'>Hair</Heading>
-        <AppearanceItemGroup name="hair" defaultId="0" options={Object.entries(playerAppearances.hair)}/>
+        <AppearanceItemGroup part="hair" value={appearance.hair} onChange={()=>{}}/>
 
         <Heading as='h2' size='md'>Shirt</Heading>
-        <AppearanceItemGroup name="shirt" defaultId="0" options={Object.entries(playerAppearances.shirt)}/>
+        <AppearanceItemGroup part="shirt" value={appearance.shirt} onChange={()=>{}}/>
 
         <Heading as='h2' size='md'>Pants</Heading>
-        <AppearanceItemGroup name="pants" defaultId="0" options={Object.entries(playerAppearances.pants)}/>
+        <AppearanceItemGroup part="pants" value={appearance.pants} onChange={()=>{}}/>
 
         <Heading as='h2' size='md'>Skin Tone</Heading>
-        <AppearanceItemGroup name="skin" defaultId="0" options={Object.entries(playerAppearances.skin)}/>
+        <AppearanceItemGroup part="skin" value={appearance.skin} onChange={()=>{}}/>
       </ModalBody>
 
       <ModalFooter>
