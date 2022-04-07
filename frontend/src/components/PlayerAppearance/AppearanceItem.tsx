@@ -24,9 +24,9 @@ export default function AppearanceItem({part, radioProps}: AppearanceItemProps):
       borderRadius='md'
       boxShadow='md'
       _checked={{
-        bg: 'teal.600',
+        bg: 'blue.200',
         color: 'white',
-        borderColor: 'teal.600',
+        borderColor: 'blue.300',
       }}
       _focus={{
         boxShadow: 'outline',

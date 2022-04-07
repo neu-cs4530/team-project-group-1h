@@ -12,7 +12,7 @@ type AppearanceItemGroupProps = {
 export default function AppearanceItemGroup({part, value, onChange}: AppearanceItemGroupProps): JSX.Element {
   const {getRootProps, getRadioProps} = useRadioGroup({
     name: part,
-    value,
+    value: `${value}`,
     onChange(nextValue) {
       onChange(+nextValue);
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useReducer} from "react";
 import {
   Button, Heading,
   Modal,
@@ -35,7 +35,16 @@ interface AppearanceModalProps {
   onAppearanceUpdated: (appearance: PlayerAppearance) => void,
 }
 
+function appearanceReducer(state: PlayerAppearance, action: Partial<PlayerAppearance>) {
+  return {
+    ...state,
+    ...action
+  };
+}
+
 export default function AppearanceModal({isOpen, onClose, appearance, onAppearanceUpdated}: AppearanceModalProps) {
+  const [currentAppearance, updateCurrentAppearance] = useReducer(appearanceReducer, appearance);
+
   return <Modal isOpen={isOpen} onClose={onClose}>
     <ModalOverlay/>
     <ModalContent>
@@ -46,16 +55,16 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
         <p>Current appearance: {JSON.stringify(appearance)}</p>
 
         <Heading as='h2' size='md'>Hair</Heading>
-        <AppearanceItemGroup part="hair" value={appearance.hair} onChange={()=>{}}/>
+        <AppearanceItemGroup part="hair" value={currentAppearance.hair} onChange={(hair) => updateCurrentAppearance({hair})}/>
 
         <Heading as='h2' size='md'>Shirt</Heading>
-        <AppearanceItemGroup part="shirt" value={appearance.shirt} onChange={()=>{}}/>
+        <AppearanceItemGroup part="shirt" value={currentAppearance.shirt} onChange={(shirt) => updateCurrentAppearance({shirt})}/>
 
         <Heading as='h2' size='md'>Pants</Heading>
-        <AppearanceItemGroup part="pants" value={appearance.pants} onChange={()=>{}}/>
+        <AppearanceItemGroup part="pants" value={currentAppearance.pants} onChange={(pants) => updateCurrentAppearance({pants})}/>
 
         <Heading as='h2' size='md'>Skin Tone</Heading>
-        <AppearanceItemGroup part="skin" value={appearance.skin} onChange={()=>{}}/>
+        <AppearanceItemGroup part="skin" value={currentAppearance.skin} onChange={(skin) => updateCurrentAppearance({skin})}/>
       </ModalBody>
 
       <ModalFooter>
