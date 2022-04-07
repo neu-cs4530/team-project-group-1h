@@ -3,7 +3,7 @@ import {
   HStack, useRadioGroup, Text
 } from '@chakra-ui/react';
 import React, {useState} from 'react';
-import {AppearancePart} from "../../classes/Player/PlayerAppearances";
+import {AppearancePart} from '../../classes/Player/PlayerAppearances';
 import AppearanceItem from "./AppearanceItem";
 
 type AppearanceItemGroupProps = {

@@ -4,6 +4,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import {AppearancePart} from "../../classes/Player/PlayerAppearances";
+import './index.css'
 
 type AppearanceItemProps = {
   id: string;
@@ -36,7 +37,7 @@ export default function AppearanceItem ( {id, part, ...props} : AppearanceItemPr
         px={5}
         py={3}
       >
-        <img src={`assets/atlas/${part.spriteNamePrefix}misa-front.png`} alt={part.name} width="50"/>
+        <img src={`assets/atlas/${part.spriteNamePrefix}misa-front.png`} alt={part.name} width="50" className="pixelated-rendering"/>
       </Box>
     </Box>
   );
