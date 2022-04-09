@@ -1,0 +1,2540 @@
+{
+	"textures": [
+		{
+			"image": "new-misa-customizable.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 128,
+				"h": 702
+			},
+			"scale": 2,
+			"frames": [
+				{
+					"filename": "hair/black/misa-left-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/black/misa-left-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 35,
+						"y": 1,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/black/misa-left.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 69,
+						"y": 1,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-front-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 24,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 1,
+						"w": 24,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-left-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 38,
+						"w": 24,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 29,
+						"w": 24,
+						"h": 26
+					}
+				},
+				{
+					"filename": "hair/black/misa-right-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 1,
+						"y": 41,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/black/misa-right-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 35,
+						"y": 41,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/black/misa-right.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 69,
+						"y": 41,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-front-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 24,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 57,
+						"w": 24,
+						"h": 26
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-left-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 1,
+						"y": 81,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-left-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 35,
+						"y": 81,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-left.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 69,
+						"y": 81,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-left-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 38,
+						"w": 24,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 85,
+						"w": 24,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shirt/white/misa-front-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 42,
+						"w": 24,
+						"h": 14
+					},
+					"frame": {
+						"x": 103,
+						"y": 113,
+						"w": 24,
+						"h": 14
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-right-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 1,
+						"y": 121,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-right-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 35,
+						"y": 121,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-right.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 38
+					},
+					"frame": {
+						"x": 69,
+						"y": 121,
+						"w": 32,
+						"h": 38
+					}
+				},
+				{
+					"filename": "pants/black/misa-back-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 129,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-back-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 143,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-back-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 157,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "hair/black/misa-front-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 1,
+						"y": 161,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/black/misa-front-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 35,
+						"y": 161,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/black/misa-front-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 69,
+						"y": 161,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "pants/black/misa-back-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 171,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-back.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 185,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "hair/black/misa-front-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 1,
+						"y": 199,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/black/misa-front.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 35,
+						"y": 199,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/black/misa-left-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 69,
+						"y": 199,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "pants/black/misa-front-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 199,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-front-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 213,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-front.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 24,
+						"h": 12
+					},
+					"frame": {
+						"x": 103,
+						"y": 227,
+						"w": 24,
+						"h": 12
+					}
+				},
+				{
+					"filename": "hair/black/misa-left-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 1,
+						"y": 237,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/black/misa-right-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 35,
+						"y": 237,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/black/misa-right-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 69,
+						"y": 237,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "pants/black/misa-left-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 54,
+						"w": 24,
+						"h": 10
+					},
+					"frame": {
+						"x": 103,
+						"y": 241,
+						"w": 24,
+						"h": 10
+					}
+				},
+				{
+					"filename": "pants/black/misa-left-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 54,
+						"w": 24,
+						"h": 10
+					},
+					"frame": {
+						"x": 103,
+						"y": 253,
+						"w": 24,
+						"h": 10
+					}
+				},
+				{
+					"filename": "pants/black/misa-right-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 54,
+						"w": 24,
+						"h": 10
+					},
+					"frame": {
+						"x": 103,
+						"y": 265,
+						"w": 24,
+						"h": 10
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-front-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 1,
+						"y": 275,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-front-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 35,
+						"y": 275,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-front-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 69,
+						"y": 275,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "pants/black/misa-right-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 54,
+						"w": 24,
+						"h": 10
+					},
+					"frame": {
+						"x": 103,
+						"y": 277,
+						"w": 24,
+						"h": 10
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-front-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 36,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 289,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-front-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 1,
+						"y": 313,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-front.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 20,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 35,
+						"y": 313,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-left-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 69,
+						"y": 313,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-left-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 38,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 317,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-front-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 36,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 345,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-left-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 1,
+						"y": 351,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-right-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 35,
+						"y": 351,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-right-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 24,
+						"w": 32,
+						"h": 36
+					},
+					"frame": {
+						"x": 69,
+						"y": 351,
+						"w": 32,
+						"h": 36
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-left-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 38,
+						"w": 22,
+						"h": 26
+					},
+					"frame": {
+						"x": 103,
+						"y": 373,
+						"w": 22,
+						"h": 26
+					}
+				},
+				{
+					"filename": "hair/black/misa-back-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 1,
+						"y": 389,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "hair/black/misa-back-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 35,
+						"y": 389,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "hair/black/misa-back-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 69,
+						"y": 389,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-right-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 42,
+						"w": 22,
+						"h": 22
+					},
+					"frame": {
+						"x": 103,
+						"y": 401,
+						"w": 22,
+						"h": 22
+					}
+				},
+				{
+					"filename": "hair/black/misa-back-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 1,
+						"y": 419,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "hair/black/misa-back.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 35,
+						"y": 419,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-back-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 69,
+						"y": 419,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-right-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 42,
+						"w": 22,
+						"h": 22
+					},
+					"frame": {
+						"x": 103,
+						"y": 425,
+						"w": 22,
+						"h": 22
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-back-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 1,
+						"y": 449,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-back-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 35,
+						"y": 449,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-back-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 69,
+						"y": 449,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-right-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 42,
+						"w": 22,
+						"h": 20
+					},
+					"frame": {
+						"x": 103,
+						"y": 449,
+						"w": 22,
+						"h": 20
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-right-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 42,
+						"w": 22,
+						"h": 20
+					},
+					"frame": {
+						"x": 103,
+						"y": 471,
+						"w": 22,
+						"h": 20
+					}
+				},
+				{
+					"filename": "hair/blonde/misa-back.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 22,
+						"w": 32,
+						"h": 28
+					},
+					"frame": {
+						"x": 1,
+						"y": 479,
+						"w": 32,
+						"h": 28
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-back-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 18
+					},
+					"frame": {
+						"x": 35,
+						"y": 479,
+						"w": 32,
+						"h": 18
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-back-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 18
+					},
+					"frame": {
+						"x": 69,
+						"y": 479,
+						"w": 32,
+						"h": 18
+					}
+				},
+				{
+					"filename": "shirt/white/misa-front-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 22,
+						"h": 14
+					},
+					"frame": {
+						"x": 103,
+						"y": 493,
+						"w": 22,
+						"h": 14
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-back.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 18
+					},
+					"frame": {
+						"x": 35,
+						"y": 499,
+						"w": 32,
+						"h": 18
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-back-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 18
+					},
+					"frame": {
+						"x": 1,
+						"y": 509,
+						"w": 32,
+						"h": 18
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-back-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 18
+					},
+					"frame": {
+						"x": 69,
+						"y": 499,
+						"w": 32,
+						"h": 18
+					}
+				},
+				{
+					"filename": "shirt/white/misa-front-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 22,
+						"h": 14
+					},
+					"frame": {
+						"x": 103,
+						"y": 509,
+						"w": 22,
+						"h": 14
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-back.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 18
+					},
+					"frame": {
+						"x": 35,
+						"y": 519,
+						"w": 32,
+						"h": 18
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-back-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 16
+					},
+					"frame": {
+						"x": 1,
+						"y": 529,
+						"w": 32,
+						"h": 16
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-back-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 16
+					},
+					"frame": {
+						"x": 69,
+						"y": 519,
+						"w": 32,
+						"h": 16
+					}
+				},
+				{
+					"filename": "shirt/white/misa-front-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 22,
+						"h": 14
+					},
+					"frame": {
+						"x": 103,
+						"y": 525,
+						"w": 22,
+						"h": 14
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-back-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 16
+					},
+					"frame": {
+						"x": 69,
+						"y": 537,
+						"w": 32,
+						"h": 16
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-back-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 44,
+						"w": 32,
+						"h": 16
+					},
+					"frame": {
+						"x": 35,
+						"y": 539,
+						"w": 32,
+						"h": 16
+					}
+				},
+				{
+					"filename": "shirt/white/misa-front.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 22,
+						"h": 14
+					},
+					"frame": {
+						"x": 103,
+						"y": 541,
+						"w": 22,
+						"h": 14
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-front-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 28,
+						"h": 26
+					},
+					"frame": {
+						"x": 69,
+						"y": 555,
+						"w": 28,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-front-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 28,
+						"h": 26
+					},
+					"frame": {
+						"x": 99,
+						"y": 557,
+						"w": 28,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-front.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 28,
+						"h": 26
+					},
+					"frame": {
+						"x": 1,
+						"y": 547,
+						"w": 28,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-front-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 28,
+						"h": 26
+					},
+					"frame": {
+						"x": 31,
+						"y": 557,
+						"w": 28,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-front-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 28,
+						"h": 26
+					},
+					"frame": {
+						"x": 1,
+						"y": 575,
+						"w": 28,
+						"h": 26
+					}
+				},
+				{
+					"filename": "shirt/white/misa-left-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 16,
+						"y": 48,
+						"w": 6,
+						"h": 8
+					},
+					"frame": {
+						"x": 61,
+						"y": 557,
+						"w": 6,
+						"h": 8
+					}
+				},
+				{
+					"filename": "shirt/white/misa-right-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 48,
+						"w": 6,
+						"h": 8
+					},
+					"frame": {
+						"x": 61,
+						"y": 567,
+						"w": 6,
+						"h": 8
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-front.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 28,
+						"h": 26
+					},
+					"frame": {
+						"x": 61,
+						"y": 583,
+						"w": 28,
+						"h": 26
+					}
+				},
+				{
+					"filename": "pants/black/misa-front-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 52,
+						"w": 22,
+						"h": 12
+					},
+					"frame": {
+						"x": 31,
+						"y": 585,
+						"w": 22,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-front-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 52,
+						"w": 22,
+						"h": 12
+					},
+					"frame": {
+						"x": 31,
+						"y": 599,
+						"w": 22,
+						"h": 12
+					}
+				},
+				{
+					"filename": "shirt/white/misa-back-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 20,
+						"h": 14
+					},
+					"frame": {
+						"x": 1,
+						"y": 603,
+						"w": 20,
+						"h": 14
+					}
+				},
+				{
+					"filename": "shirt/white/misa-back-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 20,
+						"h": 14
+					},
+					"frame": {
+						"x": 91,
+						"y": 585,
+						"w": 20,
+						"h": 14
+					}
+				},
+				{
+					"filename": "shirt/white/misa-left-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 46,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 113,
+						"y": 585,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "shirt/white/misa-left-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 46,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 113,
+						"y": 599,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "shirt/white/misa-back-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 20,
+						"h": 14
+					},
+					"frame": {
+						"x": 91,
+						"y": 601,
+						"w": 20,
+						"h": 14
+					}
+				},
+				{
+					"filename": "shirt/white/misa-left.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 46,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 113,
+						"y": 613,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "shirt/white/misa-back-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 20,
+						"h": 14
+					},
+					"frame": {
+						"x": 55,
+						"y": 611,
+						"w": 20,
+						"h": 14
+					}
+				},
+				{
+					"filename": "shirt/white/misa-left-walk.000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 48,
+						"w": 12,
+						"h": 10
+					},
+					"frame": {
+						"x": 77,
+						"y": 611,
+						"w": 12,
+						"h": 10
+					}
+				},
+				{
+					"filename": "shirt/white/misa-back.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 42,
+						"w": 20,
+						"h": 14
+					},
+					"frame": {
+						"x": 91,
+						"y": 617,
+						"w": 20,
+						"h": 14
+					}
+				},
+				{
+					"filename": "shirt/white/misa-right-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 46,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 113,
+						"y": 627,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "shirt/white/misa-right-walk.002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 48,
+						"w": 12,
+						"h": 10
+					},
+					"frame": {
+						"x": 77,
+						"y": 623,
+						"w": 12,
+						"h": 10
+					}
+				},
+				{
+					"filename": "pants/black/misa-left-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 54,
+						"w": 20,
+						"h": 10
+					},
+					"frame": {
+						"x": 91,
+						"y": 633,
+						"w": 20,
+						"h": 10
+					}
+				},
+				{
+					"filename": "shirt/white/misa-right-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 46,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 113,
+						"y": 641,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-left.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 54,
+						"w": 20,
+						"h": 10
+					},
+					"frame": {
+						"x": 23,
+						"y": 613,
+						"w": 20,
+						"h": 10
+					}
+				},
+				{
+					"filename": "pants/black/misa-right-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 54,
+						"w": 20,
+						"h": 10
+					},
+					"frame": {
+						"x": 1,
+						"y": 619,
+						"w": 20,
+						"h": 10
+					}
+				},
+				{
+					"filename": "pants/black/misa-right-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 54,
+						"w": 20,
+						"h": 10
+					},
+					"frame": {
+						"x": 23,
+						"y": 625,
+						"w": 20,
+						"h": 10
+					}
+				},
+				{
+					"filename": "pants/black/misa-right.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 54,
+						"w": 20,
+						"h": 10
+					},
+					"frame": {
+						"x": 1,
+						"y": 631,
+						"w": 20,
+						"h": 10
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-left-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 45,
+						"y": 627,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-left-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 23,
+						"y": 637,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-left.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 1,
+						"y": 643,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-left-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 1,
+						"y": 671,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-left-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 65,
+						"y": 635,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-left.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 36,
+						"w": 18,
+						"h": 26
+					},
+					"frame": {
+						"x": 43,
+						"y": 655,
+						"w": 18,
+						"h": 26
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-right-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 40,
+						"w": 18,
+						"h": 22
+					},
+					"frame": {
+						"x": 21,
+						"y": 665,
+						"w": 18,
+						"h": 22
+					}
+				},
+				{
+					"filename": "shirt/white/misa-right.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 46,
+						"w": 14,
+						"h": 12
+					},
+					"frame": {
+						"x": 21,
+						"y": 689,
+						"w": 14,
+						"h": 12
+					}
+				},
+				{
+					"filename": "pants/black/misa-left-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 54,
+						"w": 18,
+						"h": 10
+					},
+					"frame": {
+						"x": 37,
+						"y": 689,
+						"w": 18,
+						"h": 10
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-right-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 40,
+						"w": 18,
+						"h": 22
+					},
+					"frame": {
+						"x": 85,
+						"y": 645,
+						"w": 18,
+						"h": 22
+					}
+				},
+				{
+					"filename": "skin/skin-0/misa-right.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 40,
+						"w": 18,
+						"h": 22
+					},
+					"frame": {
+						"x": 63,
+						"y": 663,
+						"w": 18,
+						"h": 22
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-right-walk.001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 40,
+						"w": 18,
+						"h": 22
+					},
+					"frame": {
+						"x": 105,
+						"y": 655,
+						"w": 18,
+						"h": 22
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-right-walk.003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 40,
+						"w": 18,
+						"h": 22
+					},
+					"frame": {
+						"x": 83,
+						"y": 679,
+						"w": 18,
+						"h": 22
+					}
+				},
+				{
+					"filename": "skin/skin-3/misa-right.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 12,
+						"y": 40,
+						"w": 18,
+						"h": 22
+					},
+					"frame": {
+						"x": 103,
+						"y": 679,
+						"w": 18,
+						"h": 22
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:164488c1af5ea8469b3cb2d0f211c83d:2e0024528bda03ec991c55857746166e:81339ff5113aefda3f0d1bcdb76f398e$"
+	}
+}
