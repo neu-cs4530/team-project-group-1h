@@ -25,6 +25,7 @@ import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClie
 import useCoveyAppState from '../../hooks/useCoveyAppState';
 import AppearanceModal from "../PlayerAppearance/AppearanceModal";
 import {PlayerAppearance} from "../../classes/Player/Player";
+import usePlayerAppearance from "../../hooks/usePlayerAppearance";
 
 interface TownSelectionProps {
   doLogin: (initData: TownJoinResponse) => Promise<boolean>
@@ -37,13 +38,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const [townIDToJoin, setTownIDToJoin] = useState<string>('');
   const [currentPublicTowns, setCurrentPublicTowns] = useState<CoveyTownInfo[]>();
   const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
-  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
-    // TODO: some sort of default appearance
-    hair: 0,
-    pants: 2,
-    shirt: 3,
-    skin: 4
-  });
+  const {selectedAppearance, setSelectedAppearance} = usePlayerAppearance();
 
   const { connect: videoConnect } = useVideoContext();
   const { apiClient } = useCoveyAppState();

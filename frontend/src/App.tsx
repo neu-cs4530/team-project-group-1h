@@ -14,7 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { io, Socket } from 'socket.io-client';
 import './App.css';
 import ConversationArea, { ServerConversationArea } from './classes/ConversationArea';
-import Player, { ServerPlayer, UserLocation } from './classes/Player/Player';
+import Player, {PlayerAppearance, ServerPlayer, UserLocation} from './classes/Player/Player';
 import TownsServiceClient, { TownJoinResponse } from './classes/TownsServiceClient';
 import Video from './classes/Video/Video';
 import Login from './components/Login/Login';
@@ -33,6 +33,7 @@ import CoveyAppContext from './contexts/CoveyAppContext';
 import NearbyPlayersContext from './contexts/NearbyPlayersContext';
 import PlayerMovementContext, { PlayerMovementCallback } from './contexts/PlayerMovementContext';
 import PlayersInTownContext from './contexts/PlayersInTownContext';
+import PlayerAppearanceContext from './contexts/PlayerAppearanceContext';
 import VideoContext from './contexts/VideoContext';
 import { CoveyAppState } from './CoveyTypes';
 
@@ -285,6 +286,14 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
     );
   }, [setupGameController, appState.sessionToken, videoInstance]);
 
+  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
+    // TODO: some sort of default appearance
+    hair: 0,
+    pants: 2,
+    shirt: 3,
+    skin: 4
+  });
+
   return (
     <CoveyAppContext.Provider value={appState}>
       <VideoContext.Provider value={Video.instance()}>
@@ -293,7 +302,9 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
             <PlayersInTownContext.Provider value={playersInTown}>
               <NearbyPlayersContext.Provider value={nearbyPlayers}>
                 <ConversationAreasContext.Provider value={conversationAreas}>
-                  {page}
+                  <PlayerAppearanceContext.Provider value={{selectedAppearance, setSelectedAppearance}}>
+                    {page}
+                  </PlayerAppearanceContext.Provider>
                 </ConversationAreasContext.Provider>
               </NearbyPlayersContext.Provider>
             </PlayersInTownContext.Provider>

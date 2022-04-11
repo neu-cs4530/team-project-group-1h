@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import React, { useEffect, useMemo, useState } from 'react';
 import BoundingBox from '../../classes/BoundingBox';
 import ConversationArea from '../../classes/ConversationArea';
-import Player, { ServerPlayer, UserLocation } from '../../classes/Player/Player';
+import Player, {PlayerAppearance, ServerPlayer, UserLocation} from '../../classes/Player/Player';
 import Video from '../../classes/Video/Video';
 import useConversationAreas from '../../hooks/useConversationAreas';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
@@ -10,6 +10,8 @@ import usePlayerMovement from '../../hooks/usePlayerMovement';
 import usePlayersInTown from '../../hooks/usePlayersInTown';
 import { Callback } from '../VideoCall/VideoFrontend/types';
 import NewConversationModal from './NewCoversationModal';
+import playerAppearances from "../../classes/Player/PlayerAppearances";
+import usePlayerAppearance from "../../hooks/usePlayerAppearance";
 
 // Original inspiration and code from:
 // https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
@@ -61,17 +63,21 @@ class CoveyGameScene extends Phaser.Scene {
 
   private _onGameReadyListeners: Callback[] = [];
 
+  private selectedAppearance: PlayerAppearance;
+
   constructor(
     video: Video,
     emitMovement: (loc: UserLocation) => void,
     setNewConversation: (conv: ConversationArea) => void,
     myPlayerID: string,
+    selectedAppearance: PlayerAppearance
   ) {
     super('PlayGame');
     this.video = video;
     this.emitMovement = emitMovement;
     this.myPlayerID = myPlayerID;
     this.setNewConversation = setNewConversation;
+    this.selectedAppearance = selectedAppearance;
   }
 
   preload() {
@@ -139,6 +145,10 @@ class CoveyGameScene extends Phaser.Scene {
         eachArea.conversationArea = undefined;
       }
     });
+  }
+
+  updatePlayerAppearance(selectedAppearance: PlayerAppearance) {
+    this.selectedAppearance = selectedAppearance;
   }
 
   updatePlayersLocations(players: Player[]) {
@@ -363,9 +373,8 @@ class CoveyGameScene extends Phaser.Scene {
         const rt = this.add.renderTexture(0, 0, 32, 64);
         const texture = rt.saveTexture(orientationName);
         const spriteHair  = this.add.sprite(16,32,'misa-customizable-atlas',
-        // `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}/${orientationName}.png`);
+         `${playerAppearances.hair[this.selectedAppearance.hair].spriteNamePrefix}/${orientationName}.png`);
 
-        `hair/black/${orientationName}.png`);
         rt.draw(spriteHair);
         const spriteSkin  = this.add.sprite(16,32,'misa-customizable-atlas',
         // `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}/${orientationName}.png`);
@@ -381,7 +390,7 @@ class CoveyGameScene extends Phaser.Scene {
         // `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}/${orientationName}.png`);
         `pants/black/${orientationName}.png`);
         rt.draw(spritePants);
-      //  }  
+      //  }
     });
 
     // Possible animated postions
@@ -402,19 +411,19 @@ class CoveyGameScene extends Phaser.Scene {
         const spriteHair  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `hair/black/${animation}.png`);
         // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
         rt.draw(spriteHair);
-  
+
         const spriteSkin  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `skin/skin-0/${animation}.png`);
         // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
         rt.draw(spriteSkin);
-  
+
         const spriteShirt  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `shirt/white/${animation}.png`);
         // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
         rt.draw(spriteShirt);
-  
+
         const spritePants  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `pants/black/${animation}.png`);
         // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
         rt.draw(spritePants);
-  
+
         texture.add(animation, 0, currX, 64, 32, 64);
         currX += 32;
       });
@@ -729,6 +738,7 @@ export default function WorldMap(): JSX.Element {
   const [newConversation, setNewConversation] = useState<ConversationArea>();
   const playerMovementCallbacks = usePlayerMovement();
   const players = usePlayersInTown();
+  const {selectedAppearance} = usePlayerAppearance();
 
   useEffect(() => {
     const config = {
@@ -751,7 +761,7 @@ export default function WorldMap(): JSX.Element {
 
     const game = new Phaser.Game(config);
     if (video) {
-      const newGameScene = new CoveyGameScene(video, emitMovement, setNewConversation, myPlayerID);
+      const newGameScene = new CoveyGameScene(video, emitMovement, setNewConversation, myPlayerID, selectedAppearance);
       setGameScene(newGameScene);
       game.scene.add('coveyBoard', newGameScene, true);
       video.pauseGame = () => {
@@ -779,6 +789,10 @@ export default function WorldMap(): JSX.Element {
   useEffect(() => {
     gameScene?.updatePlayersLocations(players);
   }, [gameScene, players]);
+
+  useEffect(() => {
+    gameScene?.updatePlayerAppearance(selectedAppearance);
+  }, [gameScene, selectedAppearance]);
 
   useEffect(() => {
     gameScene?.updateConversationAreas(conversationAreas);
