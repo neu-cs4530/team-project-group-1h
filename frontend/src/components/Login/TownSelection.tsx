@@ -23,6 +23,9 @@ import useVideoContext from '../VideoCall/VideoFrontend/hooks/useVideoContext/us
 import Video from '../../classes/Video/Video';
 import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClient';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
+import { PlayerAppearance } from '../../classes/Player/Player';
+import playerAppearances from '../../classes/Player/PlayerAppearances'
+
 
 interface TownSelectionProps {
   doLogin: (initData: TownJoinResponse) => Promise<boolean>
@@ -37,6 +40,8 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const { connect: videoConnect } = useVideoContext();
   const { apiClient } = useCoveyAppState();
   const toast = useToast();
+  const playerAppearance: PlayerAppearance = {hair: 1, skin: 4, shirt: 3, pants: 2 };
+  
 
   const updateTownListings = useCallback(() => {
     // console.log(apiClient);
@@ -150,6 +155,23 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
                      onChange={event => setUserName(event.target.value)}
               />
             </FormControl>
+          </Box>
+          <Box borderWidth="1px" borderRadius="lg">
+            <Heading p="4" as="h2" size="lg">Character Preview</Heading>
+            <div className="parent">
+              <div className="child">
+                <img src={`assets/atlas/${playerAppearances.hair[playerAppearance.hair].spriteNamePrefix}misa-front.png`} alt="Misa Black Hair" />
+              </div>
+              <div className="child">
+                <img src={`assets/atlas/${playerAppearances.skin[playerAppearance.skin].spriteNamePrefix}misa-front.png`} alt="Misa Skin" />
+              </div>
+              <div className="child">
+                <img src={`assets/atlas/${playerAppearances.shirt[playerAppearance.shirt].spriteNamePrefix}misa-front.png`} alt="Misa Shirt" />
+              </div>
+              <div className="child">
+                <img src={`assets/atlas/${playerAppearances.pants[playerAppearance.pants].spriteNamePrefix}misa-front.png`} alt="Misa Pants" />
+              </div>
+            </div>
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
             <Heading p="4" as="h2" size="lg">Create a New Town</Heading>
