@@ -14,7 +14,7 @@ export default function AppearanceItem({part, radioProps}: AppearanceItemProps):
   return <Box as='label'>
     {/* Impossible to avoid spreading (https://chakra-ui.com/docs/styled-system/component-hooks/use-radio-group) */}
     {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-    <input {...getInputProps()} />
+    <input aria-label={`${radioProps.name}-${part.name}`} {...getInputProps()} />
     <Box
       // Impossible to avoid spreading (https://chakra-ui.com/docs/styled-system/component-hooks/use-radio-group)
       // eslint-disable-next-line react/jsx-props-no-spreading
