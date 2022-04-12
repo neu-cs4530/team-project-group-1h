@@ -40,6 +40,9 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const { connect: videoConnect } = useVideoContext();
   const { apiClient } = useCoveyAppState();
   const toast = useToast();
+
+  // This player appearance is currently hard coded, but will be adjusted in the
+  // future when integrated with customization modal. Still need to decide on default.
   const playerAppearance: PlayerAppearance = {hair: 1, skin: 4, shirt: 3, pants: 2 };
   
 
