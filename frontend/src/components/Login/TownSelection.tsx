@@ -16,7 +16,7 @@ import {
   Td,
   Th,
   Thead,
-  Tr,
+  Tr, useDisclosure,
   useToast
 } from '@chakra-ui/react';
 import useVideoContext from '../VideoCall/VideoFrontend/hooks/useVideoContext/useVideoContext';
@@ -25,7 +25,7 @@ import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClie
 import useCoveyAppState from '../../hooks/useCoveyAppState';
 import { PlayerAppearance } from '../../classes/Player/Player';
 import playerAppearances from '../../classes/Player/PlayerAppearances'
-
+import AppearanceModal from "../PlayerAppearance/AppearanceModal";
 
 interface TownSelectionProps {
   doLogin: (initData: TownJoinResponse) => Promise<boolean>
@@ -37,6 +37,15 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const [newTownIsPublic, setNewTownIsPublic] = useState<boolean>(true);
   const [townIDToJoin, setTownIDToJoin] = useState<string>('');
   const [currentPublicTowns, setCurrentPublicTowns] = useState<CoveyTownInfo[]>();
+  const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
+  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
+    // TODO: some sort of default appearance
+    hair: 0,
+    pants: 2,
+    shirt: 3,
+    skin: 4
+  });
+
   const { connect: videoConnect } = useVideoContext();
   const { apiClient } = useCoveyAppState();
   const toast = useToast();
@@ -158,6 +167,8 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
                      onChange={event => setUserName(event.target.value)}
               />
             </FormControl>
+
+            <Button onClick={onCustomizeOpen}>Customize Appearance</Button>
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
             <Heading p="4" as="h2" size="lg">Character Preview</Heading>
@@ -237,6 +248,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
           </Box>
         </Stack>
       </form>
+      <AppearanceModal isOpen={isCustomizeOpen} onClose={onCustomizeClose} appearance={selectedAppearance} onAppearanceUpdated={setSelectedAppearance}/>
     </>
   );
 }
