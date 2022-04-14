@@ -89,6 +89,8 @@ class CoveyGameScene extends Phaser.Scene {
     this.load.image('16_Grocery_store_32x32', '/assets/tilesets/16_Grocery_store_32x32.png');
     this.load.tilemapTiledJSON('map', '/assets/tilemaps/indoors.json');
     this.load.atlas('atlas', '/assets/atlas/atlas.png', '/assets/atlas/atlas.json');
+
+    this.load.atlas('misa-customizable-atlas', '/assets/atlas/new-misa-customizable.png', 'assets/atlas/new-misa-customizable.json');
   }
 
   /**
@@ -186,7 +188,7 @@ class CoveyGameScene extends Phaser.Scene {
         sprite = this.physics.add
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore - JB todo
-          .sprite(0, 0, 'atlas', 'misa-front')
+          .sprite(0, 0, 'misa-front')
           .setSize(30, 40)
           .setOffset(0, 24);
         const label = this.add.text(0, 0, myPlayer.userName, {
@@ -206,7 +208,7 @@ class CoveyGameScene extends Phaser.Scene {
         sprite.anims.play(`misa-${player.location.rotation}-walk`, true);
       } else {
         sprite.anims.stop();
-        sprite.setTexture('atlas', `misa-${player.location.rotation}`);
+        sprite.setTexture(`misa-${player.location.rotation}`);
       }
     }
   }
@@ -263,12 +265,12 @@ class CoveyGameScene extends Phaser.Scene {
           this.player.sprite.anims.stop();
           // If we were moving, pick and idle frame to use
           if (prevVelocity.x < 0) {
-            this.player.sprite.setTexture('atlas', 'misa-left');
+            this.player.sprite.setTexture('misa-left');
           } else if (prevVelocity.x > 0) {
-            this.player.sprite.setTexture('atlas', 'misa-right');
+            this.player.sprite.setTexture('misa-right');
           } else if (prevVelocity.y < 0) {
-            this.player.sprite.setTexture('atlas', 'misa-back');
-          } else if (prevVelocity.y > 0) this.player.sprite.setTexture('atlas', 'misa-front');
+            this.player.sprite.setTexture('misa-back');
+          } else if (prevVelocity.y > 0) this.player.sprite.setTexture('misa-front');
           break;
       }
 
@@ -348,6 +350,78 @@ class CoveyGameScene extends Phaser.Scene {
     aboveLayer.setCollisionByProperty({ collides: true });
 
     const veryAboveLayer = map.createLayer('Very Above Player', tileset, 0, 0);
+
+    // ADDED FOR CUSTOMIZATION -----------------
+    // Possible still orientations
+    const misaOrientations = ['misa-front', 'misa-back', 'misa-left', 'misa-right'];
+
+    // Rendering still orientations
+    // TODO: currently, the character properties are hardcoded. Uncomment commented out lines and test after connecting with the
+    // player customization UI
+    misaOrientations.forEach((orientationName) => {
+        // if (this.player.appearance) {
+        const rt = this.add.renderTexture(0, 0, 32, 64);
+        const texture = rt.saveTexture(orientationName);
+        const spriteHair  = this.add.sprite(16,32,'misa-customizable-atlas',
+        // `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}/${orientationName}.png`);
+
+        `hair/black/${orientationName}.png`);
+        rt.draw(spriteHair);
+        const spriteSkin  = this.add.sprite(16,32,'misa-customizable-atlas',
+        // `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}/${orientationName}.png`);
+
+        `skin/skin-0/${orientationName}.png`);
+        rt.draw(spriteSkin);
+        const spriteShirt  = this.add.sprite(16,32,'misa-customizable-atlas',
+        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
+
+        `shirt/white/${orientationName}.png`);
+        rt.draw(spriteShirt);
+        const spritePants  = this.add.sprite(16,32,'misa-customizable-atlas',
+        // `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}/${orientationName}.png`);
+        `pants/black/${orientationName}.png`);
+        rt.draw(spritePants);
+      //  }  
+    });
+
+    // Possible animated postions
+    const misaFrontAnimations = ['misa-front-walk.000', 'misa-front-walk.001', 'misa-front-walk.002', 'misa-front-walk.003'];
+    const misaBackAnimations = ['misa-back-walk.000', 'misa-back-walk.001', 'misa-back-walk.002', 'misa-back-walk.003'];
+    const misaLeftAnimations = ['misa-left-walk.000', 'misa-left-walk.001', 'misa-left-walk.002', 'misa-left-walk.003'];
+    const misaRightAnimations = ['misa-right-walk.000', 'misa-right-walk.001', 'misa-right-walk.002', 'misa-right-walk.003'];
+    const misaAllOrientationsAnimations = [misaFrontAnimations, misaBackAnimations, misaLeftAnimations, misaRightAnimations];
+
+    // Rendering textures with frames for animations.
+    // TODO: currently, the character properties are hardcoded. Uncomment commented out lines and test after connecting with the
+    // player customization UI
+    misaAllOrientationsAnimations.forEach((orientation) => {
+      const rt = this.add.renderTexture(0, 0, 128, 64);
+      const texture = rt.saveTexture(orientation[0].substring(0, orientation[0].length - 3));
+      let currX = 0;
+      orientation.forEach((animation) => {
+        const spriteHair  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `hair/black/${animation}.png`);
+        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
+        rt.draw(spriteHair);
+  
+        const spriteSkin  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `skin/skin-0/${animation}.png`);
+        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
+        rt.draw(spriteSkin);
+  
+        const spriteShirt  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `shirt/white/${animation}.png`);
+        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
+        rt.draw(spriteShirt);
+  
+        const spritePants  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `pants/black/${animation}.png`);
+        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
+        rt.draw(spritePants);
+  
+        texture.add(animation, 0, currX, 64, 32, 64);
+        currX += 32;
+      });
+    });
+
+    // ---------------------------------------------------
+
     /* By default, everything gets depth sorted on the screen in the order we created things.
      Here, we want the "Above Player" layer to sit on top of the player, so we explicitly give
      it a depth. Higher depths will sit on top of lower depth objects.
@@ -463,7 +537,7 @@ class CoveyGameScene extends Phaser.Scene {
     // has a bit of whitespace, so I'm using setSize & setOffset to control the size of the
     // player's body.
     const sprite = this.physics.add
-      .sprite(spawnPoint.x, spawnPoint.y, 'atlas', 'misa-front')
+      .sprite(spawnPoint.x, spawnPoint.y, 'misa-front')
       .setSize(30, 40)
       .setOffset(0, 24);
     const label = this.add.text(spawnPoint.x, spawnPoint.y - 20, '(You)', {
@@ -545,7 +619,7 @@ class CoveyGameScene extends Phaser.Scene {
     const { anims } = this;
     anims.create({
       key: 'misa-left-walk',
-      frames: anims.generateFrameNames('atlas', {
+      frames: anims.generateFrameNames('misa-left-walk.', {
         prefix: 'misa-left-walk.',
         start: 0,
         end: 3,
@@ -556,7 +630,7 @@ class CoveyGameScene extends Phaser.Scene {
     });
     anims.create({
       key: 'misa-right-walk',
-      frames: anims.generateFrameNames('atlas', {
+      frames: anims.generateFrameNames('misa-right-walk.', {
         prefix: 'misa-right-walk.',
         start: 0,
         end: 3,
@@ -567,7 +641,7 @@ class CoveyGameScene extends Phaser.Scene {
     });
     anims.create({
       key: 'misa-front-walk',
-      frames: anims.generateFrameNames('atlas', {
+      frames: anims.generateFrameNames('misa-front-walk.', {
         prefix: 'misa-front-walk.',
         start: 0,
         end: 3,
@@ -578,7 +652,7 @@ class CoveyGameScene extends Phaser.Scene {
     });
     anims.create({
       key: 'misa-back-walk',
-      frames: anims.generateFrameNames('atlas', {
+      frames: anims.generateFrameNames('misa-back-walk.', {
         prefix: 'misa-back-walk.',
         start: 0,
         end: 3,
