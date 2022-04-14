@@ -4,7 +4,7 @@ import {fireEvent, render} from "@testing-library/react";
 import AppearanceModal from "./AppearanceModal";
 import {PlayerAppearance} from "../../classes/Player/Player";
 
-describe('ConversationAreasList', () => {
+describe('AppearanceModal', () => {
   const Wrapper = () => {
     const {
       onClose: onCustomizeClose
