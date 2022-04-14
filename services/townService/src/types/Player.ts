@@ -11,7 +11,7 @@ export default class Player {
   public location: UserLocation;
 
   /** The player's selected appearance */
-  public appearance?: PlayerAppearance;
+  public _appearance: PlayerAppearance;
 
   /** The unique identifier for this player * */
   private readonly _id: string;
@@ -22,7 +22,7 @@ export default class Player {
   /** The current ConversationArea that the player is in, or undefined if they are not located within one */
   private _activeConversationArea?: ServerConversationArea;
 
-  constructor(userName: string) {
+  constructor(userName: string, appearance: PlayerAppearance) {
     this.location = {
       x: 0,
       y: 0,
@@ -31,6 +31,7 @@ export default class Player {
     };
     this._userName = userName;
     this._id = nanoid();
+    this._appearance = appearance;
   }
 
   get userName(): string {
@@ -39,6 +40,10 @@ export default class Player {
 
   get id(): string {
     return this._id;
+  }
+
+  get appearance(): PlayerAppearance {
+    return this._appearance;
   }
 
   get activeConversationArea(): ServerConversationArea | undefined {

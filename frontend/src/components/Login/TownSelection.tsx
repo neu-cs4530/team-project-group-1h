@@ -53,7 +53,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   // This player appearance is currently hard coded, but will be adjusted in the
   // future when integrated with customization modal. Still need to decide on default.
   const playerAppearance: PlayerAppearance = {hair: 1, skin: 4, shirt: 3, pants: 2 };
-  
+
 
   const updateTownListings = useCallback(() => {
     // console.log(apiClient);
@@ -90,7 +90,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         });
         return;
       }
-      const initData = await Video.setup(userName, coveyRoomID);
+      const initData = await Video.setup(userName, coveyRoomID, selectedAppearance);
 
       const loggedIn = await doLogin(initData);
       if (loggedIn) {

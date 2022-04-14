@@ -1,5 +1,6 @@
 import DebugLogger from '../DebugLogger';
 import TownsServiceClient, { TownJoinResponse } from '../TownsServiceClient';
+import {PlayerAppearance} from "../Player/Player";
 
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["pauseGame", "unPauseGame"] }] */
@@ -22,6 +23,8 @@ export default class Video {
 
   private _coveyTownID: string;
 
+  private _appearance: PlayerAppearance;
+
   private _townFriendlyName: string | undefined;
 
   private _isPubliclyListed: boolean | undefined;
@@ -30,9 +33,10 @@ export default class Video {
 
   unPauseGame: () => void = ()=>{};
 
-  constructor(userName: string, coveyTownID: string) {
+  constructor(userName: string, coveyTownID: string, appearance: PlayerAppearance) {
     this._userName = userName;
     this._coveyTownID = coveyTownID;
+    this._appearance = appearance;
   }
 
   get isPubliclyListed(): boolean {
@@ -54,6 +58,10 @@ export default class Video {
     return this._coveyTownID;
   }
 
+  get appearance(): PlayerAppearance {
+    return this._appearance;
+  }
+
   private async setup(): Promise<TownJoinResponse> {
     if (!this.initialisePromise) {
       this.initialisePromise = new Promise((resolve, reject) => {
@@ -61,6 +69,7 @@ export default class Video {
         this.townsServiceClient.joinTown({
           coveyTownID: this._coveyTownID,
           userName: this._userName,
+          appearance: this._appearance,
         })
           .then((result) => {
             this.sessionToken = result.coveySessionToken;
@@ -100,11 +109,11 @@ export default class Video {
     return this.teardownPromise ?? Promise.resolve();
   }
 
-  public static async setup(username: string, coveyTownID: string): Promise<TownJoinResponse> {
+  public static async setup(username: string, coveyTownID: string, selectedAppearance: PlayerAppearance): Promise<TownJoinResponse> {
     let result = null;
 
     if (!Video.video) {
-      Video.video = new Video(username, coveyTownID);
+      Video.video = new Video(username, coveyTownID, selectedAppearance);
     }
 
     try {
