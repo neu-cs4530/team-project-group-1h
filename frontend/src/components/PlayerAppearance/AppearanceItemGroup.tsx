@@ -1,4 +1,4 @@
-import {HStack, Text, useRadioGroup, Wrap} from '@chakra-ui/react';
+import {useRadioGroup, Wrap} from '@chakra-ui/react';
 import React from 'react';
 import playerAppearances from '../../classes/Player/PlayerAppearances';
 import AppearanceItem from "./AppearanceItem";

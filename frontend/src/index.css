@@ -14,6 +14,7 @@ code {
   position: relative;
   overflow: hidden;
   height: 100px;
+  width: 64px;
 }
 
 .character-preview-child {

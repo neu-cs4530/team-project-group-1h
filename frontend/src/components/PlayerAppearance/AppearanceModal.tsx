@@ -9,7 +9,6 @@ import {
   ModalOverlay
 } from "@chakra-ui/react"
 import {PlayerAppearance} from "../../classes/Player/Player";
-import playerAppearances from "../../classes/Player/PlayerAppearances";
 import AppearanceItemGroup from "./AppearanceItemGroup";
 
 interface AppearanceModalProps {
