@@ -26,6 +26,7 @@ import useCoveyAppState from '../../hooks/useCoveyAppState';
 import { PlayerAppearance } from '../../classes/Player/Player';
 import playerAppearances from '../../classes/Player/PlayerAppearances'
 import AppearanceModal from "../PlayerAppearance/AppearanceModal";
+import AppearancePreview from '../PlayerAppearance/AppearancePreview';
 
 interface TownSelectionProps {
   doLogin: (initData: TownJoinResponse) => Promise<boolean>
@@ -170,21 +171,8 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
             <Button onClick={onCustomizeOpen}>Customize Appearance</Button>
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
-            <Heading p="4" as="h2" size="lg">Character Preview</Heading>
-            <div className="character-preview-parent">
-              <div className="character-preview-child">
-                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.skin[playerAppearance.skin].spriteNamePrefix}misa-front.png`} alt="Misa Skin" />
-              </div>
-              <div className="character-preview-child">
-                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.shirt[playerAppearance.shirt].spriteNamePrefix}misa-front.png`} alt="Misa Shirt" />
-              </div>
-              <div className="character-preview-child">
-                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.pants[playerAppearance.pants].spriteNamePrefix}misa-front.png`} alt="Misa Pants" />
-              </div>
-              <div className="character-preview-child">
-                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.hair[playerAppearance.hair].spriteNamePrefix}misa-front.png`} alt="Misa Black Hair" />
-              </div>
-            </div>
+            <Heading p="4" as="h2" size="lg">Character Appearance</Heading>
+            <AppearancePreview appearance={selectedAppearance} />
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
             <Heading p="4" as="h2" size="lg">Create a New Town</Heading>
