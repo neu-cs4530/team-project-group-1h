@@ -41,9 +41,9 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
     // TODO: some sort of default appearance
     hair: 0,
-    pants: 2,
-    shirt: 3,
-    skin: 4
+    pants: 0,
+    shirt: 0,
+    skin: 0,
   });
 
   const { connect: videoConnect } = useVideoContext();
@@ -52,8 +52,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
 
   // This player appearance is currently hard coded, but will be adjusted in the
   // future when integrated with customization modal. Still need to decide on default.
-  const playerAppearance: PlayerAppearance = {hair: 1, skin: 4, shirt: 3, pants: 2 };
-  
+  const playerAppearance: PlayerAppearance = {hair: 0, skin: 0, shirt: 0, pants: 0 };
 
   const updateTownListings = useCallback(() => {
     // console.log(apiClient);
@@ -97,7 +96,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         assert(initData.providerVideoToken);
         await videoConnect(initData.providerVideoToken);
       }
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Unable to connect to Towns Service',
         description: err.toString(),
@@ -144,7 +143,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         duration: null,
       })
       await handleJoin(newTownInfo.coveyTownID);
-    } catch (err) {
+    } catch (err: any) {
       toast({
         title: 'Unable to connect to Towns Service',
         description: err.toString(),
@@ -172,18 +171,18 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
             <Heading p="4" as="h2" size="lg">Character Preview</Heading>
-            <div className="parent">
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.hair[playerAppearance.hair].spriteNamePrefix}misa-front.png`} alt="Misa Black Hair" />
+            <div className="character-preview-parent">
+              <div className="character-preview-child">
+                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.skin[playerAppearance.skin].spriteNamePrefix}misa-front.png`} alt="Misa Skin" />
               </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.skin[playerAppearance.skin].spriteNamePrefix}misa-front.png`} alt="Misa Skin" />
+              <div className="character-preview-child">
+                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.shirt[playerAppearance.shirt].spriteNamePrefix}misa-front.png`} alt="Misa Shirt" />
               </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.shirt[playerAppearance.shirt].spriteNamePrefix}misa-front.png`} alt="Misa Shirt" />
+              <div className="character-preview-child">
+                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.pants[playerAppearance.pants].spriteNamePrefix}misa-front.png`} alt="Misa Pants" />
               </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.pants[playerAppearance.pants].spriteNamePrefix}misa-front.png`} alt="Misa Pants" />
+              <div className="character-preview-child">
+                <img src={`assets/atlas/misa-parts/misa-customizable/${playerAppearances.hair[playerAppearance.hair].spriteNamePrefix}misa-front.png`} alt="Misa Black Hair" />
               </div>
             </div>
           </Box>

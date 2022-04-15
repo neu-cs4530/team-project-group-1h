@@ -62,7 +62,7 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
     onClose();
   }
 
-  return <Modal isOpen={isOpen} onClose={onClose}>
+  return <Modal isOpen={isOpen} onClose={onClose} size="2xl">
     <ModalOverlay/>
     <ModalContent>
       <ModalHeader>Customize Appearance</ModalHeader>
