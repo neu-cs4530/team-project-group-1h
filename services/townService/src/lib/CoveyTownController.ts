@@ -116,7 +116,7 @@ export default class CoveyTownController {
    * Updates player appearance
    *
    *
-   * @param player Player to update location for
+   * @param player Player to update appearance for
    * @param appearance New appearance for the player
    */
   updatePlayerAppearance(player: Player, appearance: PlayerAppearance): void {
