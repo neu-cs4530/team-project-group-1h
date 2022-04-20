@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import assert from "assert";
 import {
   Box,
-  Button,
+  Button, Center,
   Checkbox,
   Flex,
   FormControl,
   FormLabel,
   Heading,
-  Input,
+  Input, Spacer,
   Stack,
   Table,
   TableCaption,
@@ -17,15 +17,15 @@ import {
   Th,
   Thead,
   Tr, useDisclosure,
-  useToast
+  useToast, VStack
 } from '@chakra-ui/react';
 import useVideoContext from '../VideoCall/VideoFrontend/hooks/useVideoContext/useVideoContext';
 import Video from '../../classes/Video/Video';
 import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClient';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
 import { PlayerAppearance } from '../../classes/Player/Player';
-import playerAppearances from '../../classes/Player/PlayerAppearances'
 import AppearanceModal from "../PlayerAppearance/AppearanceModal";
+import AppearancePreview from '../PlayerAppearance/AppearancePreview';
 
 interface TownSelectionProps {
   doLogin: (initData: TownJoinResponse) => Promise<boolean>
@@ -41,19 +41,14 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
     // TODO: some sort of default appearance
     hair: 0,
-    pants: 2,
-    shirt: 3,
-    skin: 4
+    pants: 0,
+    shirt: 0,
+    skin: 0,
   });
 
   const { connect: videoConnect } = useVideoContext();
   const { apiClient } = useCoveyAppState();
   const toast = useToast();
-
-  // This player appearance is currently hard coded, but will be adjusted in the
-  // future when integrated with customization modal. Still need to decide on default.
-  const playerAppearance: PlayerAppearance = {hair: 1, skin: 4, shirt: 3, pants: 2 };
-  
 
   const updateTownListings = useCallback(() => {
     // console.log(apiClient);
@@ -97,10 +92,10 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         assert(initData.providerVideoToken);
         await videoConnect(initData.providerVideoToken);
       }
-    } catch (err) {
+    } catch (err: unknown) {
       toast({
         title: 'Unable to connect to Towns Service',
-        description: err.toString(),
+        description: `${err}`,
         status: 'error'
       })
     }
@@ -144,10 +139,10 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         duration: null,
       })
       await handleJoin(newTownInfo.coveyTownID);
-    } catch (err) {
+    } catch (err: unknown) {
       toast({
         title: 'Unable to connect to Towns Service',
-        description: err.toString(),
+        description: `${err}`,
         status: 'error'
       })
     }
@@ -167,25 +162,22 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
                      onChange={event => setUserName(event.target.value)}
               />
             </FormControl>
-
-            <Button onClick={onCustomizeOpen}>Customize Appearance</Button>
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
-            <Heading p="4" as="h2" size="lg">Character Preview</Heading>
-            <div className="parent">
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.hair[playerAppearance.hair].spriteNamePrefix}misa-front.png`} alt="Misa Black Hair" />
-              </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.skin[playerAppearance.skin].spriteNamePrefix}misa-front.png`} alt="Misa Skin" />
-              </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.shirt[playerAppearance.shirt].spriteNamePrefix}misa-front.png`} alt="Misa Shirt" />
-              </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.pants[playerAppearance.pants].spriteNamePrefix}misa-front.png`} alt="Misa Pants" />
-              </div>
-            </div>
+            <Heading p="4" as="h2" size="lg">Character Appearance</Heading>
+            <VStack gap={2}>
+              <Box>
+                <Center>
+                  <AppearancePreview appearance={selectedAppearance} />
+                </Center>
+              </Box>
+              <Box>
+                <Center>
+                  <Button onClick={onCustomizeOpen}>Customize Appearance</Button>
+                </Center>
+              </Box>
+              <Spacer />
+            </VStack>
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
             <Heading p="4" as="h2" size="lg">Create a New Town</Heading>
