@@ -19,6 +19,12 @@ export default interface CoveyTownListener {
   onPlayerMoved(movedPlayer: Player): void;
 
   /**
+   * Called when a player's appearance changes
+   * @param player the player that changed appearance
+   */
+  onPlayerAppearanceUpdated(player: Player): void;
+
+  /**
    * Called when a player disconnects from the town
    * @param removedPlayer the player that disconnected
    */

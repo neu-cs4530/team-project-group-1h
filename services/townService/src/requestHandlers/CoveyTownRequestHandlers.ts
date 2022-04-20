@@ -215,6 +215,9 @@ function townSocketAdapter(socket: Socket): CoveyTownListener {
     onPlayerDisconnected(removedPlayer: Player) {
       socket.emit('playerDisconnect', removedPlayer);
     },
+    onPlayerAppearanceUpdated(player: Player): void {
+      socket.emit('playerAppearanceUpdated', player);
+    },
     onPlayerJoined(newPlayer: Player) {
       socket.emit('newPlayer', newPlayer);
     },
@@ -230,7 +233,7 @@ function townSocketAdapter(socket: Socket): CoveyTownListener {
     },
     onChatMessage(message: ChatMessage){
       socket.emit('chatMessage', message);
-    },
+    }
   };
 }
 
@@ -274,5 +277,17 @@ export function townSubscriptionHandler(socket: Socket): void {
   // location, inform the CoveyTownController
   socket.on('playerMovement', (movementData: UserLocation) => {
     townController.updatePlayerLocation(s.player, movementData);
+  });
+
+  // Register an event listener for the client socket: if the client updates their
+  // location, inform the CoveyTownController
+  socket.on('playerMovement', (movementData: UserLocation) => {
+    townController.updatePlayerLocation(s.player, movementData);
+  });
+
+  // Register an event listener for the client socket: if the client updates their
+  // appearance, inform the CoveyTownController
+  socket.on('playerUpdateAppearance', (appearance: PlayerAppearance) => {
+    townController.updatePlayerAppearance(s.player, appearance);
   });
 }
