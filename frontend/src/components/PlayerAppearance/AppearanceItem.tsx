@@ -1,7 +1,6 @@
 import {Box, useRadio, UseRadioProps} from '@chakra-ui/react';
 import React from 'react';
 import {AppearancePart} from "../../classes/Player/PlayerAppearances";
-import './index.css'
 
 type AppearanceItemProps = {
   part: AppearancePart;

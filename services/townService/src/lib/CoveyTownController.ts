@@ -6,7 +6,7 @@ import Player from '../types/Player';
 import PlayerSession from '../types/PlayerSession';
 import IVideoClient from './IVideoClient';
 import TwilioVideo from './TwilioVideo';
-import {PlayerAppearance} from "../types/PlayerAppearance";
+import { PlayerAppearance } from '../types/PlayerAppearance';
 
 const friendlyNanoID = customAlphabet('1234567890ABCDEF', 8);
 

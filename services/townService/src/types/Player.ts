@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { ServerConversationArea } from '../client/TownsServiceClient';
 import { UserLocation } from '../CoveyTypes';
-import { PlayerAppearance } from './PlayerAppearance';
+import { PlayerAppearance, defaultAppearance } from './PlayerAppearance';
 
 /**
  * Each user who is connected to a town is represented by a Player object
@@ -22,7 +22,7 @@ export default class Player {
   /** The current ConversationArea that the player is in, or undefined if they are not located within one */
   private _activeConversationArea?: ServerConversationArea;
 
-  constructor(userName: string, appearance: PlayerAppearance) {
+  constructor(userName: string, appearance?: PlayerAppearance) {
     this.location = {
       x: 0,
       y: 0,
@@ -31,7 +31,7 @@ export default class Player {
     };
     this._userName = userName;
     this._id = nanoid();
-    this._appearance = appearance;
+    this._appearance = appearance ?? defaultAppearance;
   }
 
   get userName(): string {
