@@ -140,6 +140,7 @@ describe('TownsServiceAPIREST', () => {
       try {
         await apiClient.joinTown({
           userName: nanoid(),
+          appearance: { hair: 0, skin: 0, shirt: 0, pants: 0 },
           coveyTownID,
         });
         fail('Expected joinTown to throw an error');
@@ -205,6 +206,7 @@ describe('TownsServiceAPIREST', () => {
       try {
         await apiClient.joinTown({
           userName: nanoid(),
+          appearance: { hair: 0, skin: 0, shirt: 0, pants: 0 },
           coveyTownID: nanoid(),
         });
         fail('Expected an error to be thrown by joinTown but none thrown');
@@ -219,6 +221,7 @@ describe('TownsServiceAPIREST', () => {
       const privTown1 = await createTownForTesting(undefined, false);
       const res = await apiClient.joinTown({
         userName: nanoid(),
+        appearance: { hair: 0, skin: 0, shirt: 0, pants: 0 },
         coveyTownID: pubTown1.coveyTownID,
       });
       expect(res.coveySessionToken).toBeDefined();
@@ -226,6 +229,7 @@ describe('TownsServiceAPIREST', () => {
 
       const res2 = await apiClient.joinTown({
         userName: nanoid(),
+        appearance: { hair: 0, skin: 0, shirt: 0, pants: 0 },
         coveyTownID: privTown1.coveyTownID,
       });
       expect(res2.coveySessionToken).toBeDefined();
