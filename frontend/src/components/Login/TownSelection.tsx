@@ -1,14 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import assert from "assert";
 import {
   Box,
-  Button, Center,
+  Button,
+  Center,
   Checkbox,
   Flex,
   FormControl,
   FormLabel,
   Heading,
-  Input, Spacer,
+  Input,
+  Spacer,
   Stack,
   Table,
   TableCaption,
@@ -16,16 +18,19 @@ import {
   Td,
   Th,
   Thead,
-  Tr, useDisclosure,
-  useToast, VStack
+  Tr,
+  useDisclosure,
+  useToast,
+  VStack
 } from '@chakra-ui/react';
 import useVideoContext from '../VideoCall/VideoFrontend/hooks/useVideoContext/useVideoContext';
 import Video from '../../classes/Video/Video';
-import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClient';
+import {CoveyTownInfo, TownJoinResponse,} from '../../classes/TownsServiceClient';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
-import { PlayerAppearance } from '../../classes/Player/Player';
+import {PlayerAppearance} from '../../classes/Player/Player';
 import AppearanceModal from "../PlayerAppearance/AppearanceModal";
 import AppearancePreview from '../PlayerAppearance/AppearancePreview';
+import {loadAppearanceFromStorage, saveAppearanceToStorage} from "../../classes/Player/PlayerAppearances";
 
 interface TownSelectionProps {
   doLogin: (initData: TownJoinResponse) => Promise<boolean>
@@ -38,13 +43,12 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const [townIDToJoin, setTownIDToJoin] = useState<string>('');
   const [currentPublicTowns, setCurrentPublicTowns] = useState<CoveyTownInfo[]>();
   const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
-  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
-    // TODO: some sort of default appearance
-    hair: 0,
-    pants: 0,
-    shirt: 0,
-    skin: 0,
-  });
+  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>(loadAppearanceFromStorage());
+
+  const handleAppearanceUpdate = (appearance: PlayerAppearance) => {
+    saveAppearanceToStorage(appearance);
+    setSelectedAppearance(appearance);
+  };
 
   const { connect: videoConnect } = useVideoContext();
   const { apiClient } = useCoveyAppState();
@@ -240,7 +244,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
           </Box>
         </Stack>
       </form>
-      <AppearanceModal isOpen={isCustomizeOpen} onClose={onCustomizeClose} appearance={selectedAppearance} onAppearanceUpdated={setSelectedAppearance}/>
+      <AppearanceModal isOpen={isCustomizeOpen} onClose={onCustomizeClose} appearance={selectedAppearance} onAppearanceUpdated={handleAppearanceUpdate}/>
     </>
   );
 }
