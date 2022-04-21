@@ -210,7 +210,7 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
           p => p.id === player._id,
         );
         if (updatedPlayer) {
-          updatedPlayer.appearance = player.appearance;
+          updatedPlayer.appearance = player._appearance;
         }
         setPlayersInTown(localPlayers);
         recalculateNearbyPlayers();

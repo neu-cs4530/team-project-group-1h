@@ -27,10 +27,10 @@ export default class Player {
   }
 
   static fromServerPlayer(playerFromServer: ServerPlayer): Player {
-    return new Player(playerFromServer._id, playerFromServer._userName, playerFromServer.location, playerFromServer.appearance);
+    return new Player(playerFromServer._id, playerFromServer._userName, playerFromServer.location, playerFromServer._appearance);
   }
 }
-export type ServerPlayer = { _id: string, _userName: string, location: UserLocation, appearance: PlayerAppearance };
+export type ServerPlayer = { _id: string, _userName: string, location: UserLocation, _appearance: PlayerAppearance };
 
 export type Direction = 'front' | 'back' | 'left' | 'right';
 
