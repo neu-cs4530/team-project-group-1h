@@ -1,13 +1,15 @@
 import Phaser from 'phaser';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useDisclosure } from '@chakra-ui/react';
 import BoundingBox from '../../classes/BoundingBox';
 import ConversationArea from '../../classes/ConversationArea';
-import Player, { ServerPlayer, UserLocation } from '../../classes/Player/Player';
+import Player, { ServerPlayer, UserLocation, PlayerAppearance } from '../../classes/Player/Player';
 import Video from '../../classes/Video/Video';
 import useConversationAreas from '../../hooks/useConversationAreas';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
 import usePlayerMovement from '../../hooks/usePlayerMovement';
 import usePlayersInTown from '../../hooks/usePlayersInTown';
+import AppearanceModal from '../PlayerAppearance/AppearanceModal';
 import { Callback } from '../VideoCall/VideoFrontend/types';
 import NewConversationModal from './NewCoversationModal';
 import playerAppearances from '../../classes/Player/PlayerAppearances';
@@ -62,17 +64,21 @@ class CoveyGameScene extends Phaser.Scene {
 
   private _onGameReadyListeners: Callback[] = [];
 
+  private onCustomizeOpen: () => void;
+
   constructor(
     video: Video,
     emitMovement: (loc: UserLocation) => void,
     setNewConversation: (conv: ConversationArea) => void,
     myPlayerID: string,
+    onCustomizeOpen: () => void
   ) {
     super('PlayGame');
     this.video = video;
     this.emitMovement = emitMovement;
     this.myPlayerID = myPlayerID;
     this.setNewConversation = setNewConversation;
+    this.onCustomizeOpen = onCustomizeOpen;
   }
 
   preload() {
@@ -614,6 +620,7 @@ class CoveyGameScene extends Phaser.Scene {
       label,
     };
 
+
     /* Configure physics overlap behavior for when the player steps into
     a transporter area. If you enter a transporter and press 'space', you'll
     transport to the location on the map that is referenced by the 'target' property
@@ -700,6 +707,27 @@ class CoveyGameScene extends Phaser.Scene {
       .setScrollFactor(0)
       .setDepth(30);
 
+    // Button for user to change character appearance after joining town
+    this.add
+    .text(
+      this.game.scale.width - 120,
+      this.game.scale.height - 75,
+      `Change\nAvatar`,
+      {
+        font: '18px monospace',
+        color: '#000000',
+        padding: {
+          x: 20,
+          y: 10,
+        },
+        backgroundColor: '#ffffff',
+      },
+    )
+    .setScrollFactor(0)
+    .setDepth(30)
+    .setInteractive({ useHandCursor: true })
+    .on('pointerdown', this.onCustomizeOpen);
+
     this.ready = true;
     if (this.players.length) {
       // Some players got added to the queue before we were ready, make sure that they have
@@ -744,6 +772,15 @@ export default function WorldMap(): JSX.Element {
   const [newConversation, setNewConversation] = useState<ConversationArea>();
   const playerMovementCallbacks = usePlayerMovement();
   const players = usePlayersInTown();
+  const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
+  const [selectedAppearance, setSelectedAppearance] = 
+  useState<PlayerAppearance>({
+    // TODO: change to neutral default
+    hair: 0,
+    pants: 2,
+    shirt: 3,
+    skin: 4
+  });
 
   useEffect(() => {
     const config = {
@@ -766,7 +803,7 @@ export default function WorldMap(): JSX.Element {
 
     const game = new Phaser.Game(config);
     if (video) {
-      const newGameScene = new CoveyGameScene(video, emitMovement, setNewConversation, myPlayerID);
+      const newGameScene = new CoveyGameScene(video, emitMovement, setNewConversation, myPlayerID, onCustomizeOpen);
       setGameScene(newGameScene);
       game.scene.add('coveyBoard', newGameScene, true);
       video.pauseGame = () => {
@@ -779,7 +816,7 @@ export default function WorldMap(): JSX.Element {
     return () => {
       game.destroy(true);
     };
-  }, [video, emitMovement, setNewConversation, myPlayerID]);
+  }, [video, emitMovement, setNewConversation, myPlayerID, onCustomizeOpen]);
 
   useEffect(() => {
     const movementDispatcher = (player: ServerPlayer) => {
@@ -825,9 +862,18 @@ export default function WorldMap(): JSX.Element {
     return <></>;
   }, [video, newConversation, setNewConversation]);
 
+  const newCustomizationModal = useMemo(() => (
+    <AppearanceModal 
+    isOpen={isCustomizeOpen} 
+    onClose={onCustomizeClose} 
+    appearance={selectedAppearance} 
+    onAppearanceUpdated={setSelectedAppearance}/>
+  ), [isCustomizeOpen, onCustomizeClose]);
+
   return (
     <>
       {newConversationModal}
+      {newCustomizationModal}
       <div id='map-container' />
     </>
   );
