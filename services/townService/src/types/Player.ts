@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { ServerConversationArea } from '../client/TownsServiceClient';
 import { UserLocation } from '../CoveyTypes';
-import { PlayerAppearance, defaultAppearance } from './PlayerAppearance';
+import { PlayerAppearance, DEFAULT_APPEARANCE } from './PlayerAppearance';
 
 /**
  * Each user who is connected to a town is represented by a Player object
@@ -31,7 +31,7 @@ export default class Player {
     };
     this._userName = userName;
     this._id = nanoid();
-    this._appearance = appearance ?? defaultAppearance;
+    this._appearance = appearance ?? DEFAULT_APPEARANCE;
   }
 
   get userName(): string {
