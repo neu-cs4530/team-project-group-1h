@@ -34,7 +34,9 @@ export default function AppearanceItem({part, radioProps}: AppearanceItemProps):
       px={5}
       py={3}
     >
-      <img src={`assets/atlas/${part.spriteNamePrefix}misa-front.png`} alt={part.name} width="48"
+      <img src={`assets/atlas/misa-parts/misa-customizable/${part.spriteNamePrefix}misa-front.png`}
+           alt={part.name}
+           width={64}
            className="pixelated-rendering"/>
     </Box>
   </Box>;

@@ -205,6 +205,16 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
           }
         }
       });
+      socket.on('playerAppearanceUpdated', (player: ServerPlayer) => {
+        const updatedPlayer = localPlayers.find(
+          p => p.id === player._id,
+        );
+        if (updatedPlayer) {
+          updatedPlayer.appearance = player.appearance;
+        }
+        setPlayersInTown(localPlayers);
+        recalculateNearbyPlayers();
+      });
       socket.on('playerDisconnect', (disconnectedPlayer: ServerPlayer) => {
         localPlayers = localPlayers.filter(player => player.id !== disconnectedPlayer._id);
         setPlayersInTown(localPlayers);

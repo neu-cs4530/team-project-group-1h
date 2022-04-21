@@ -3,8 +3,7 @@
  */
 export type PlayerAppearance = {
   hair: number;
-  body: number;
+  skin: number;
   shirt: number;
   pants: number;
-  shoes: number;
 };

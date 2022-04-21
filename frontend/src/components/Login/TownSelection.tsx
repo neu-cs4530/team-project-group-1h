@@ -1,14 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import assert from "assert";
 import {
   Box,
   Button,
+  Center,
   Checkbox,
   Flex,
   FormControl,
   FormLabel,
   Heading,
   Input,
+  Spacer,
   Stack,
   Table,
   TableCaption,
@@ -16,16 +18,19 @@ import {
   Td,
   Th,
   Thead,
-  Tr, useDisclosure,
-  useToast
+  Tr,
+  useDisclosure,
+  useToast,
+  VStack
 } from '@chakra-ui/react';
 import useVideoContext from '../VideoCall/VideoFrontend/hooks/useVideoContext/useVideoContext';
 import Video from '../../classes/Video/Video';
-import { CoveyTownInfo, TownJoinResponse, } from '../../classes/TownsServiceClient';
+import {CoveyTownInfo, TownJoinResponse,} from '../../classes/TownsServiceClient';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
-import { PlayerAppearance } from '../../classes/Player/Player';
-import playerAppearances from '../../classes/Player/PlayerAppearances'
+import {PlayerAppearance} from '../../classes/Player/Player';
 import AppearanceModal from "../PlayerAppearance/AppearanceModal";
+import AppearancePreview from '../PlayerAppearance/AppearancePreview';
+import {loadAppearanceFromStorage, saveAppearanceToStorage} from "../../classes/Player/PlayerAppearances";
 
 interface TownSelectionProps {
   doLogin: (initData: TownJoinResponse) => Promise<boolean>
@@ -38,22 +43,16 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
   const [townIDToJoin, setTownIDToJoin] = useState<string>('');
   const [currentPublicTowns, setCurrentPublicTowns] = useState<CoveyTownInfo[]>();
   const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
-  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
-    // TODO: some sort of default appearance
-    hair: 0,
-    pants: 2,
-    shirt: 3,
-    skin: 4
-  });
+  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>(loadAppearanceFromStorage());
+
+  const handleAppearanceUpdate = (appearance: PlayerAppearance) => {
+    saveAppearanceToStorage(appearance);
+    setSelectedAppearance(appearance);
+  };
 
   const { connect: videoConnect } = useVideoContext();
   const { apiClient } = useCoveyAppState();
   const toast = useToast();
-
-  // This player appearance is currently hard coded, but will be adjusted in the
-  // future when integrated with customization modal. Still need to decide on default.
-  const playerAppearance: PlayerAppearance = {hair: 1, skin: 4, shirt: 3, pants: 2 };
-  
 
   const updateTownListings = useCallback(() => {
     // console.log(apiClient);
@@ -90,17 +89,17 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         });
         return;
       }
-      const initData = await Video.setup(userName, coveyRoomID);
+      const initData = await Video.setup(userName, coveyRoomID, selectedAppearance);
 
       const loggedIn = await doLogin(initData);
       if (loggedIn) {
         assert(initData.providerVideoToken);
         await videoConnect(initData.providerVideoToken);
       }
-    } catch (err) {
+    } catch (err: unknown) {
       toast({
         title: 'Unable to connect to Towns Service',
-        description: err.toString(),
+        description: `${err}`,
         status: 'error'
       })
     }
@@ -144,10 +143,10 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         duration: null,
       })
       await handleJoin(newTownInfo.coveyTownID);
-    } catch (err) {
+    } catch (err: unknown) {
       toast({
         title: 'Unable to connect to Towns Service',
-        description: err.toString(),
+        description: `${err}`,
         status: 'error'
       })
     }
@@ -167,25 +166,22 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
                      onChange={event => setUserName(event.target.value)}
               />
             </FormControl>
-
-            <Button onClick={onCustomizeOpen}>Customize Appearance</Button>
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
-            <Heading p="4" as="h2" size="lg">Character Preview</Heading>
-            <div className="parent">
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.hair[playerAppearance.hair].spriteNamePrefix}misa-front.png`} alt="Misa Black Hair" />
-              </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.skin[playerAppearance.skin].spriteNamePrefix}misa-front.png`} alt="Misa Skin" />
-              </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.shirt[playerAppearance.shirt].spriteNamePrefix}misa-front.png`} alt="Misa Shirt" />
-              </div>
-              <div className="child">
-                <img src={`assets/atlas/${playerAppearances.pants[playerAppearance.pants].spriteNamePrefix}misa-front.png`} alt="Misa Pants" />
-              </div>
-            </div>
+            <Heading p="4" as="h2" size="lg">Character Appearance</Heading>
+            <VStack gap={2}>
+              <Box>
+                <Center>
+                  <AppearancePreview appearance={selectedAppearance} />
+                </Center>
+              </Box>
+              <Box>
+                <Center>
+                  <Button onClick={onCustomizeOpen}>Customize Appearance</Button>
+                </Center>
+              </Box>
+              <Spacer />
+            </VStack>
           </Box>
           <Box borderWidth="1px" borderRadius="lg">
             <Heading p="4" as="h2" size="lg">Create a New Town</Heading>
@@ -248,7 +244,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
           </Box>
         </Stack>
       </form>
-      <AppearanceModal isOpen={isCustomizeOpen} onClose={onCustomizeClose} appearance={selectedAppearance} onAppearanceUpdated={setSelectedAppearance}/>
+      <AppearanceModal isOpen={isCustomizeOpen} onClose={onCustomizeClose} appearance={selectedAppearance} onAppearanceUpdated={handleAppearanceUpdate}/>
     </>
   );
 }

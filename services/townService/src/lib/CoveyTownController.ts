@@ -6,6 +6,7 @@ import Player from '../types/Player';
 import PlayerSession from '../types/PlayerSession';
 import IVideoClient from './IVideoClient';
 import TwilioVideo from './TwilioVideo';
+import {PlayerAppearance} from "../types/PlayerAppearance";
 
 const friendlyNanoID = customAlphabet('1234567890ABCDEF', 8);
 
@@ -112,6 +113,18 @@ export default class CoveyTownController {
   }
 
   /**
+   * Updates player appearance
+   *
+   *
+   * @param player Player to update appearance for
+   * @param appearance New appearance for the player
+   */
+  updatePlayerAppearance(player: Player, appearance: PlayerAppearance): void {
+    player._appearance = appearance;
+    this._listeners.forEach(listener => listener.onPlayerAppearanceUpdated(player));
+  }
+
+  /**
    * Destroys all data related to a player in this town.
    *
    * @param session PlayerSession to destroy
@@ -128,11 +141,11 @@ export default class CoveyTownController {
 
   /**
    * Updates the location of a player within the town
-   * 
+   *
    * If the player has changed conversation areas, this method also updates the
    * corresponding ConversationArea objects tracked by the town controller, and dispatches
    * any onConversationUpdated events as appropriate
-   * 
+   *
    * @param player Player to update location for
    * @param location New location for this player
    */
@@ -157,11 +170,11 @@ export default class CoveyTownController {
   }
 
   /**
-   * Removes a player from a conversation area, updating the conversation area's occupants list, 
+   * Removes a player from a conversation area, updating the conversation area's occupants list,
    * and emitting the appropriate message (area updated or area destroyed)
-   * 
+   *
    * Does not update the player's activeConversationArea property.
-   * 
+   *
    * @param player Player to remove from conversation area
    * @param conversation Conversation area to remove player from
    */
@@ -196,7 +209,7 @@ export default class CoveyTownController {
     if (_conversationArea.topic === ''){
       return false;
     }
-    if (this._conversationAreas.find(eachExistingConversation => 
+    if (this._conversationAreas.find(eachExistingConversation =>
       CoveyTownController.boxesOverlap(eachExistingConversation.boundingBox, _conversationArea.boundingBox)) !== undefined){
       return false;
     }
@@ -211,9 +224,9 @@ export default class CoveyTownController {
 
   /**
    * Detects whether two bounding boxes overlap and share any points
-   * 
-   * @param box1 
-   * @param box2 
+   *
+   * @param box1
+   * @param box2
    * @returns true if the boxes overlap, otherwise false
    */
   static boxesOverlap(box1: BoundingBox, box2: BoundingBox):boolean{
