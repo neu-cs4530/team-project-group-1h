@@ -85,7 +85,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         });
         return;
       }
-      const initData = await Video.setup(userName, coveyRoomID);
+      const initData = await Video.setup(userName, coveyRoomID, selectedAppearance);
 
       const loggedIn = await doLogin(initData);
       if (loggedIn) {

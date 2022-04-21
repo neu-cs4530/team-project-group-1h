@@ -5,6 +5,7 @@ import { ChatMessage, CoveyTownList, UserLocation } from '../CoveyTypes';
 import CoveyTownListener from '../types/CoveyTownListener';
 import CoveyTownsStore from '../lib/CoveyTownsStore';
 import { ConversationAreaCreateRequest, ServerConversationArea } from '../client/TownsServiceClient';
+import { PlayerAppearance } from '../types/PlayerAppearance';
 
 /**
  * The format of a request to join a Town in Covey.Town, as dispatched by the server middleware
@@ -14,6 +15,8 @@ export interface TownJoinRequest {
   userName: string;
   /** ID of the town that the player would like to join * */
   coveyTownID: string;
+  /** appearance of player that would like to join * */
+  appearance: PlayerAppearance;
 }
 
 /**
@@ -109,7 +112,7 @@ export async function townJoinHandler(requestData: TownJoinRequest): Promise<Res
       message: 'Error: No such town',
     };
   }
-  const newPlayer = new Player(requestData.userName);
+  const newPlayer = new Player(requestData.userName, requestData.appearance);
   const newSession = await coveyTownController.addPlayer(newPlayer);
   assert(newSession.videoToken);
   return {
@@ -212,6 +215,9 @@ function townSocketAdapter(socket: Socket): CoveyTownListener {
     onPlayerDisconnected(removedPlayer: Player) {
       socket.emit('playerDisconnect', removedPlayer);
     },
+    onPlayerAppearanceUpdated(player: Player): void {
+      socket.emit('playerAppearanceUpdated', player);
+    },
     onPlayerJoined(newPlayer: Player) {
       socket.emit('newPlayer', newPlayer);
     },
@@ -227,7 +233,7 @@ function townSocketAdapter(socket: Socket): CoveyTownListener {
     },
     onChatMessage(message: ChatMessage){
       socket.emit('chatMessage', message);
-    },
+    }
   };
 }
 
@@ -271,5 +277,11 @@ export function townSubscriptionHandler(socket: Socket): void {
   // location, inform the CoveyTownController
   socket.on('playerMovement', (movementData: UserLocation) => {
     townController.updatePlayerLocation(s.player, movementData);
+  });
+  
+  // Register an event listener for the client socket: if the client updates their
+  // appearance, inform the CoveyTownController
+  socket.on('playerUpdateAppearance', (appearance: PlayerAppearance) => {
+    townController.updatePlayerAppearance(s.player, appearance);
   });
 }

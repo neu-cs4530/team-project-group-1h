@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import assert from 'assert';
-import { ServerPlayer } from './Player/Player';
+import {PlayerAppearance, ServerPlayer} from './Player/Player';
 import { ServerConversationArea } from './ConversationArea';
 
 /**
@@ -11,6 +11,8 @@ export interface TownJoinRequest {
   userName: string;
   /** ID of the town that the player would like to join * */
   coveyTownID: string;
+  /** appearance of player that would like to join * */
+  appearance: PlayerAppearance;
 }
 
 /**

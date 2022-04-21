@@ -1,13 +1,14 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import assert from 'assert';
 import { UserLocation } from '../CoveyTypes';
+import { PlayerAppearance } from '../types/PlayerAppearance';
 
 
-export type ServerPlayer = { _id: string, _userName: string, location: UserLocation };
+export type ServerPlayer = { _id: string, _userName: string, location: UserLocation, appearance: PlayerAppearance };
 
 /**
  * A bounding box, with a coordinate system that matches the frontend game engine's coordinates
- * The x,y position specifies the center of the box (NOT a corner). 
+ * The x,y position specifies the center of the box (NOT a corner).
  */
 export type BoundingBox = {
   x: number,
@@ -30,6 +31,8 @@ export interface TownJoinRequest {
   userName: string;
   /** ID of the town that the player would like to join * */
   coveyTownID: string;
+  /** appearance of player that would like to join * */
+  appearance: PlayerAppearance;
 }
 
 /**
