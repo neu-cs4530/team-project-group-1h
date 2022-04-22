@@ -97,3 +97,25 @@ const playerAppearances: { [k in keyof PlayerAppearance]: { [key: number]: Appea
 }
 
 export default playerAppearances;
+
+export const DEFAULT_APPEARANCE: PlayerAppearance = {
+  hair: 0,
+  pants: 0,
+  shirt: 0,
+  skin: 0,
+};
+
+const APPEARANCE_LOCALSTORAGE_KEY = "coveytown-prev-appearance";
+
+export function loadAppearanceFromStorage(): PlayerAppearance {
+  const result = localStorage.getItem(APPEARANCE_LOCALSTORAGE_KEY);
+  if (result) {
+    return JSON.parse(result);
+  }
+
+  return DEFAULT_APPEARANCE;
+}
+
+export function saveAppearanceToStorage(appearance: PlayerAppearance) {
+  localStorage.setItem(APPEARANCE_LOCALSTORAGE_KEY, JSON.stringify(appearance));
+}

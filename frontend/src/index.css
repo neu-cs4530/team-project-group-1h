@@ -31,3 +31,9 @@ code {
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 }
+
+.pixelated-rendering {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
