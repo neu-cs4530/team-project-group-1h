@@ -22,6 +22,7 @@ export default function AppearanceItemGroup({part, value, onChange}: AppearanceI
 
   return <>
     {/* Impossible to avoid spreading (https://chakra-ui.com/docs/styled-system/component-hooks/use-radio-group) */}
+    {/* https://piazza.com/class/ky1wxuhh7ry2ue?cid=787 */}
     {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <Wrap {...group}>
       {Object.entries(playerAppearances[part])
