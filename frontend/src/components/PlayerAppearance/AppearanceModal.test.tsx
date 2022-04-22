@@ -11,9 +11,9 @@ describe('AppearanceModal', () => {
     } = useDisclosure();
     const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>({
       hair: 0,
-      pants: 2,
-      shirt: 3,
-      skin: 4
+      pants: 0,
+      shirt: 0,
+      skin: 0
     });
     return (
       <ChakraProvider>
@@ -29,14 +29,14 @@ describe('AppearanceModal', () => {
     const {getByText, getByLabelText} = render(<Wrapper/>)
     expect(getByText("Customize Appearance")).toBeDefined()
 
-    expect(getByLabelText("hair-Black")).toBeChecked()
-    expect(getByLabelText("hair-Blonde")).not.toBeChecked()
+    expect(getByLabelText("hair-Long Black")).toBeChecked()
+    expect(getByLabelText("hair-Long Blonde")).not.toBeChecked()
 
-    fireEvent.click(getByLabelText("hair-Blonde"));
-    expect(getByLabelText("hair-Blonde")).toBeChecked()
+    fireEvent.click(getByLabelText("hair-Long Blonde"));
+    expect(getByLabelText("hair-Long Blonde")).toBeChecked()
 
-    fireEvent.click(getByLabelText("hair-Black"));
-    expect(getByLabelText("hair-Black")).toBeChecked()
+    fireEvent.click(getByLabelText("hair-Short Black"));
+    expect(getByLabelText("hair-Short Black")).toBeChecked()
   });
 
 });

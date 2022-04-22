@@ -7,3 +7,5 @@ export type PlayerAppearance = {
   shirt: number;
   pants: number;
 };
+
+export const DEFAULT_APPEARANCE: PlayerAppearance = { hair: 0, pants: 0, shirt: 0, skin: 0 };
