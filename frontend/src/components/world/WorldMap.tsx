@@ -12,7 +12,7 @@ import usePlayersInTown from '../../hooks/usePlayersInTown';
 import AppearanceModal from '../PlayerAppearance/AppearanceModal';
 import { Callback } from '../VideoCall/VideoFrontend/types';
 import NewConversationModal from './NewCoversationModal';
-import playerAppearances from '../../classes/Player/PlayerAppearances';
+import playerAppearances, {loadAppearanceFromStorage} from '../../classes/Player/PlayerAppearances';
 
 // Original inspiration and code from:
 // https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
@@ -133,15 +133,15 @@ class CoveyGameScene extends Phaser.Scene {
 
               const spriteShirt  = this.add.sprite(16,32,'misa-customizable-atlas',
               `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${orientationName}.png`);
- 
+
               rt.draw(spriteShirt);
               const spritePants  = this.add.sprite(16,32,'misa-customizable-atlas',
               `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${orientationName}.png`);
 
               rt.draw(spritePants);
-            }  
+            }
         });
- 
+
       // Possible animated postions
       // Rendering textures with frames for animations.
       misaAllOrientationsAnimations.forEach((orientation) => {
@@ -157,15 +157,15 @@ class CoveyGameScene extends Phaser.Scene {
 
           `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${animation}.png`);
           rt.draw(spriteHair);
-   
+
           const spriteShirt  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
           `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${animation}.png`);
           rt.draw(spriteShirt);
-   
+
           const spritePants  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
           `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${animation}.png`);
           rt.draw(spritePants);
-   
+
           texture.add(`${player.id}-${animation}`, 0, currX, 64, 32, 64);
           currX += 32;
           }
@@ -403,7 +403,7 @@ class CoveyGameScene extends Phaser.Scene {
           } else if (prevVelocity.y > 0) this.player.sprite.setTexture(`${this.myPlayerID}-misa-front`);
           break;
       }
-     
+
 
       // Normalize and scale the velocity so that player can't move faster along a diagonal
       this.player.sprite.body.velocity.normalize().scale(speed);
@@ -449,7 +449,7 @@ class CoveyGameScene extends Phaser.Scene {
       }
       }
     }
- 
+
 
   create() {
     const map = this.make.tilemap({ key: 'map' });
@@ -766,21 +766,14 @@ class CoveyGameScene extends Phaser.Scene {
 
 export default function WorldMap(): JSX.Element {
   const video = Video.instance();
-  const { emitMovement, myPlayerID } = useCoveyAppState();
+  const { emitMovement, myPlayerID, socket } = useCoveyAppState();
   const conversationAreas = useConversationAreas();
   const [gameScene, setGameScene] = useState<CoveyGameScene>();
   const [newConversation, setNewConversation] = useState<ConversationArea>();
   const playerMovementCallbacks = usePlayerMovement();
   const players = usePlayersInTown();
   const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
-  const [selectedAppearance, setSelectedAppearance] = 
-  useState<PlayerAppearance>({
-    // TODO: change to neutral default
-    hair: 0,
-    pants: 2,
-    shirt: 3,
-    skin: 4
-  });
+  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>(loadAppearanceFromStorage());
 
   useEffect(() => {
     const config = {
@@ -845,6 +838,13 @@ export default function WorldMap(): JSX.Element {
     }
   }, [video, newConversationModalOpen]);
 
+
+  useEffect(() => {
+    if(selectedAppearance && socket) {
+      console.log(selectedAppearance)
+      socket.emit('playerUpdateAppearance', selectedAppearance);
+    }
+  }, [selectedAppearance])
   const newConversationModal = useMemo(() => {
     if (newConversation) {
       video?.pauseGame();
@@ -863,10 +863,10 @@ export default function WorldMap(): JSX.Element {
   }, [video, newConversation, setNewConversation]);
 
   const newCustomizationModal = useMemo(() => (
-    <AppearanceModal 
-    isOpen={isCustomizeOpen} 
-    onClose={onCustomizeClose} 
-    appearance={selectedAppearance} 
+    <AppearanceModal
+    isOpen={isCustomizeOpen}
+    onClose={onCustomizeClose}
+    appearance={selectedAppearance}
     onAppearanceUpdated={setSelectedAppearance}/>
   ), [isCustomizeOpen, onCustomizeClose]);
 
