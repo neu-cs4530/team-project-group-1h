@@ -841,10 +841,14 @@ export default function WorldMap(): JSX.Element {
 
   useEffect(() => {
     if(selectedAppearance && socket) {
-      console.log(selectedAppearance)
       socket.emit('playerUpdateAppearance', selectedAppearance);
     }
   }, [selectedAppearance])
+
+  useEffect(() => {
+    console.log("players updated")
+  }, [players])
+
   const newConversationModal = useMemo(() => {
     if (newConversation) {
       video?.pauseGame();
