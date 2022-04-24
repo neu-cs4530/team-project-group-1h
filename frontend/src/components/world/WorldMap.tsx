@@ -12,7 +12,10 @@ import usePlayersInTown from '../../hooks/usePlayersInTown';
 import AppearanceModal from '../PlayerAppearance/AppearanceModal';
 import { Callback } from '../VideoCall/VideoFrontend/types';
 import NewConversationModal from './NewCoversationModal';
-import playerAppearances, {loadAppearanceFromStorage} from '../../classes/Player/PlayerAppearances';
+import playerAppearances, {
+  loadAppearanceFromStorage,
+  saveAppearanceToStorage
+} from '../../classes/Player/PlayerAppearances';
 
 // Original inspiration and code from:
 // https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
@@ -869,6 +872,7 @@ export default function WorldMap(): JSX.Element {
 
   useEffect(() => {
     if(selectedAppearance && socket) {
+      saveAppearanceToStorage(selectedAppearance);
       socket.emit('playerUpdateAppearance', selectedAppearance);
     }
   }, [selectedAppearance])
