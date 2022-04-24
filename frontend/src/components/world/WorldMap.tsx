@@ -112,12 +112,10 @@ class CoveyGameScene extends Phaser.Scene {
       const misaRightAnimations = ['misa-right-walk.000', 'misa-right-walk.001', 'misa-right-walk.002', 'misa-right-walk.003'];
       const misaAllOrientationsAnimations = [misaFrontAnimations, misaBackAnimations, misaLeftAnimations, misaRightAnimations];
       if (player) {
-        console.log(player);
         // TODO: remove this line once appearance comes with player
         // player.appearance = {'hair': 0, 'skin': 0, 'shirt': 0, 'pants': 0};
         misaOrientations.forEach((orientationName) => {
            if (player.appearance) {
-             console.log('we are here');
               const rt = this.add.renderTexture(0, 0, 32, 64);
               const texture = rt.saveTexture(`${player.id}-${orientationName}`);
 
@@ -175,6 +173,12 @@ class CoveyGameScene extends Phaser.Scene {
       // Create the player's walking animations from the texture atlas. These are stored in the global
       // animation manager so any sprite can access them.
       const { anims } = this;
+      if (anims.exists(`${player.id}-misa-left-walk`)) {
+        anims.remove(`${player.id}-misa-left-walk`);
+        anims.remove(`${player.id}-misa-right-walk`);
+        anims.remove(`${player.id}-misa-front-walk`);
+        anims.remove(`${player.id}-misa-back-walk`);
+      }
       anims.create({
         key: `${player.id}-misa-left-walk`,
         frames: anims.generateFrameNames(`${player.id}-misa-left-walk.`, {
@@ -344,6 +348,31 @@ class CoveyGameScene extends Phaser.Scene {
     }
   }
 
+
+  updatePlayerAppearances(players: Player[]) {
+    if (!this.ready) {
+      this.players = players;
+      return;
+    }
+    players.forEach(p => {
+      this.updatePlayerAppearance(p);
+    });
+  }
+
+  updatePlayerAppearance(player: Player) {
+    const myPlayer = this.players.find(p => p.id === player.id);
+    this.createPlayerSprites(player);
+    if (myPlayer) {
+      const { sprite } = myPlayer;
+      if (this.myPlayerID === player.id && this.player) {
+        this.player.sprite.setTexture(this.player.sprite.texture.key);
+      } else if(myPlayer && sprite && myPlayer.location) {
+        sprite.setTexture(`${player.id}-misa-${myPlayer.location.rotation}`);
+      }
+
+    }
+  }
+
   getNewMovementDirection() {
     if (this.cursors.find(keySet => keySet.left?.isDown)) {
       return 'left';
@@ -485,7 +514,6 @@ class CoveyGameScene extends Phaser.Scene {
 
     const myPlayer2 = this.players.find(p => p.id === this.myPlayerID);
     if (myPlayer2) {
-      console.log('we have the player');
       this.createPlayerSprites(myPlayer2);
     }
 
@@ -846,7 +874,7 @@ export default function WorldMap(): JSX.Element {
   }, [selectedAppearance])
 
   useEffect(() => {
-    console.log("players updated")
+    gameScene?.updatePlayerAppearances(players)
   }, [players])
 
   const newConversationModal = useMemo(() => {
