@@ -15,7 +15,7 @@ import {
 import {PlayerAppearance} from "../../classes/Player/Player";
 import AppearanceItemGroup from "./AppearanceItemGroup";
 import AppearancePreview from "./AppearancePreview";
-import playerAppearances from "../../classes/Player/PlayerAppearances";
+import playerAppearances, {randomPart} from "../../classes/Player/PlayerAppearances";
 
 interface AppearanceModalProps {
   /**
@@ -66,9 +66,6 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
     onAppearanceUpdated(currentAppearance);
     onClose();
   }
-
-  const randomPart = (part: keyof typeof playerAppearances) => Math.floor(Math.random() *
-    Object.keys(playerAppearances[part]).length);
 
   const handleRandomAppearance = () => {
     updateCurrentAppearance({

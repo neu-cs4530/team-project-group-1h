@@ -119,3 +119,7 @@ export function loadAppearanceFromStorage(): PlayerAppearance {
 export function saveAppearanceToStorage(appearance: PlayerAppearance) {
   localStorage.setItem(APPEARANCE_LOCALSTORAGE_KEY, JSON.stringify(appearance));
 }
+
+export function randomPart(part: keyof typeof playerAppearances) {
+  return Math.floor(Math.random() * Object.keys(playerAppearances[part]).length);
+}
