@@ -103,47 +103,42 @@ class CoveyGameScene extends Phaser.Scene {
     this.load.atlas('misa-customizable-atlas', '/assets/atlas/misa-parts/all-options-misa.png', '/assets/atlas/misa-parts/all-options-misa.json');
   }
 
-      // ADDED FOR CUSTOMIZATION -----------------
+  createPlayerSprites(player: Player) {
     // Rendering still orientations
-    createPlayerSprites(player: Player) {
-      // Possible still orientations
-      const misaOrientations = ['misa-front', 'misa-back', 'misa-left', 'misa-right'];
-      // Animated orientations
-      const misaFrontAnimations = ['misa-front-walk.000', 'misa-front-walk.001', 'misa-front-walk.002', 'misa-front-walk.003'];
-      const misaBackAnimations = ['misa-back-walk.000', 'misa-back-walk.001', 'misa-back-walk.002', 'misa-back-walk.003'];
-      const misaLeftAnimations = ['misa-left-walk.000', 'misa-left-walk.001', 'misa-left-walk.002', 'misa-left-walk.003'];
-      const misaRightAnimations = ['misa-right-walk.000', 'misa-right-walk.001', 'misa-right-walk.002', 'misa-right-walk.003'];
-      const misaAllOrientationsAnimations = [misaFrontAnimations, misaBackAnimations, misaLeftAnimations, misaRightAnimations];
-      if (player) {
-        // TODO: remove this line once appearance comes with player
-        // player.appearance = {'hair': 0, 'skin': 0, 'shirt': 0, 'pants': 0};
-        misaOrientations.forEach((orientationName) => {
-           if (player.appearance) {
-              const rt = this.add.renderTexture(0, 0, 32, 64);
-              const texture = rt.saveTexture(`${player.id}-${orientationName}`);
+    const misaOrientations = ['misa-front', 'misa-back', 'misa-left', 'misa-right'];
+    // Animated orientations
+    const misaFrontAnimations = ['misa-front-walk.000', 'misa-front-walk.001', 'misa-front-walk.002', 'misa-front-walk.003'];
+    const misaBackAnimations = ['misa-back-walk.000', 'misa-back-walk.001', 'misa-back-walk.002', 'misa-back-walk.003'];
+    const misaLeftAnimations = ['misa-left-walk.000', 'misa-left-walk.001', 'misa-left-walk.002', 'misa-left-walk.003'];
+    const misaRightAnimations = ['misa-right-walk.000', 'misa-right-walk.001', 'misa-right-walk.002', 'misa-right-walk.003'];
+    const misaAllOrientationsAnimations = [misaFrontAnimations, misaBackAnimations, misaLeftAnimations, misaRightAnimations];
+    if (player) {
+      misaOrientations.forEach((orientationName) => {
+         if (player.appearance) {
+            const rt = this.add.renderTexture(0, 0, 32, 64);
+            const texture = rt.saveTexture(`${player.id}-${orientationName}`);
 
-              const spriteSkin  = this.add.sprite(16,32,'misa-customizable-atlas',
-              `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${orientationName}.png`);
+            const spriteSkin  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${orientationName}.png`);
 
-              rt.draw(spriteSkin);
+            rt.draw(spriteSkin);
 
-              const spriteHair  = this.add.sprite(16,32,'misa-customizable-atlas',
-              `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${orientationName}.png`);
+            const spriteHair  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${orientationName}.png`);
 
-              rt.draw(spriteHair);
+            rt.draw(spriteHair);
 
-              const spriteShirt  = this.add.sprite(16,32,'misa-customizable-atlas',
-              `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${orientationName}.png`);
+            const spriteShirt  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${orientationName}.png`);
 
-              rt.draw(spriteShirt);
-              const spritePants  = this.add.sprite(16,32,'misa-customizable-atlas',
-              `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${orientationName}.png`);
+            rt.draw(spriteShirt);
+            const spritePants  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${orientationName}.png`);
 
-              rt.draw(spritePants);
-            }
-        });
+            rt.draw(spritePants);
+          }
+      });
 
-      // Possible animated postions
       // Rendering textures with frames for animations.
       misaAllOrientationsAnimations.forEach((orientation) => {
         const rt = this.add.renderTexture(0, 0, 128, 64);
@@ -227,7 +222,7 @@ class CoveyGameScene extends Phaser.Scene {
         repeat: -1,
       });
     }
-    }
+  }
 
   /**
    * Update the WorldMap's view of the current conversation areas, updating their topics and
@@ -342,7 +337,6 @@ class CoveyGameScene extends Phaser.Scene {
       myPlayer.label?.setX(player.location.x);
       myPlayer.label?.setY(player.location.y - 20);
       if (player.location.moving) {
-        // TODO: change this to player specific
         sprite.anims.play(`${myPlayer.id}-misa-${player.location.rotation}-walk`, true);
       } else {
         sprite.anims.stop();
@@ -372,7 +366,6 @@ class CoveyGameScene extends Phaser.Scene {
       } else if(myPlayer && sprite && myPlayer.location) {
         sprite.setTexture(`${player.id}-misa-${myPlayer.location.rotation}`);
       }
-
     }
   }
 
