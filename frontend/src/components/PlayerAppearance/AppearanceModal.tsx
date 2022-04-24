@@ -72,7 +72,7 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
       <ModalBody>
         <Stack direction={['column', 'row']}>
           <Box>
-            <div style={{width: "128px", height: "200px"}}>
+            <div style={{width: "128px", height: "200px", overflowX: "hidden"}}>
               <div style={{transform: "scale(2.0)", transformOrigin: "top left"}}>
                 <AppearancePreview appearance={currentAppearance}/>
               </div>

@@ -183,6 +183,7 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
       };
       socket.on('newPlayer', (player: ServerPlayer) => {
         localPlayers = localPlayers.concat(Player.fromServerPlayer(player));
+        setPlayersInTown(localPlayers);
         recalculateNearbyPlayers();
       });
       socket.on('playerMoved', (player: ServerPlayer) => {
@@ -212,8 +213,7 @@ function App(props: { setOnDisconnect: Dispatch<SetStateAction<Callback | undefi
         if (updatedPlayer) {
           updatedPlayer.appearance = player._appearance;
         }
-        setPlayersInTown(localPlayers);
-        recalculateNearbyPlayers();
+        setPlayersInTown([...localPlayers]);
       });
       socket.on('playerDisconnect', (disconnectedPlayer: ServerPlayer) => {
         localPlayers = localPlayers.filter(player => player.id !== disconnectedPlayer._id);

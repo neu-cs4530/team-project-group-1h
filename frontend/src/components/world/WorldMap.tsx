@@ -1,15 +1,21 @@
 import Phaser from 'phaser';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useDisclosure } from '@chakra-ui/react';
 import BoundingBox from '../../classes/BoundingBox';
 import ConversationArea from '../../classes/ConversationArea';
-import Player, { ServerPlayer, UserLocation } from '../../classes/Player/Player';
+import Player, { ServerPlayer, UserLocation, PlayerAppearance } from '../../classes/Player/Player';
 import Video from '../../classes/Video/Video';
 import useConversationAreas from '../../hooks/useConversationAreas';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
 import usePlayerMovement from '../../hooks/usePlayerMovement';
 import usePlayersInTown from '../../hooks/usePlayersInTown';
+import AppearanceModal from '../PlayerAppearance/AppearanceModal';
 import { Callback } from '../VideoCall/VideoFrontend/types';
 import NewConversationModal from './NewCoversationModal';
+import playerAppearances, {
+  loadAppearanceFromStorage,
+  saveAppearanceToStorage
+} from '../../classes/Player/PlayerAppearances';
 
 // Original inspiration and code from:
 // https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
@@ -61,17 +67,21 @@ class CoveyGameScene extends Phaser.Scene {
 
   private _onGameReadyListeners: Callback[] = [];
 
+  private onCustomizeOpen: () => void;
+
   constructor(
     video: Video,
     emitMovement: (loc: UserLocation) => void,
     setNewConversation: (conv: ConversationArea) => void,
     myPlayerID: string,
+    onCustomizeOpen: () => void
   ) {
     super('PlayGame');
     this.video = video;
     this.emitMovement = emitMovement;
     this.myPlayerID = myPlayerID;
     this.setNewConversation = setNewConversation;
+    this.onCustomizeOpen = onCustomizeOpen;
   }
 
   preload() {
@@ -90,7 +100,128 @@ class CoveyGameScene extends Phaser.Scene {
     this.load.tilemapTiledJSON('map', '/assets/tilemaps/indoors.json');
     this.load.atlas('atlas', '/assets/atlas/atlas.png', '/assets/atlas/atlas.json');
 
-    this.load.atlas('misa-customizable-atlas', '/assets/atlas/new-misa-customizable.png', 'assets/atlas/new-misa-customizable.json');
+    this.load.atlas('misa-customizable-atlas', '/assets/atlas/misa-parts/all-options-misa.png', '/assets/atlas/misa-parts/all-options-misa.json');
+  }
+
+  createPlayerSprites(player: Player) {
+    // Rendering still orientations
+    const misaOrientations = ['misa-front', 'misa-back', 'misa-left', 'misa-right'];
+    // Animated orientations
+    const misaFrontAnimations = ['misa-front-walk.000', 'misa-front-walk.001', 'misa-front-walk.002', 'misa-front-walk.003'];
+    const misaBackAnimations = ['misa-back-walk.000', 'misa-back-walk.001', 'misa-back-walk.002', 'misa-back-walk.003'];
+    const misaLeftAnimations = ['misa-left-walk.000', 'misa-left-walk.001', 'misa-left-walk.002', 'misa-left-walk.003'];
+    const misaRightAnimations = ['misa-right-walk.000', 'misa-right-walk.001', 'misa-right-walk.002', 'misa-right-walk.003'];
+    const misaAllOrientationsAnimations = [misaFrontAnimations, misaBackAnimations, misaLeftAnimations, misaRightAnimations];
+    if (player) {
+      misaOrientations.forEach((orientationName) => {
+         if (player.appearance) {
+            const rt = this.add.renderTexture(0, 0, 32, 64);
+            const texture = rt.saveTexture(`${player.id}-${orientationName}`);
+
+            const spriteSkin  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${orientationName}.png`);
+
+            rt.draw(spriteSkin);
+
+            const spriteHair  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${orientationName}.png`);
+
+            rt.draw(spriteHair);
+
+            const spriteShirt  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${orientationName}.png`);
+
+            rt.draw(spriteShirt);
+            const spritePants  = this.add.sprite(16,32,'misa-customizable-atlas',
+            `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${orientationName}.png`);
+
+            rt.draw(spritePants);
+          }
+      });
+
+      // Rendering textures with frames for animations.
+      misaAllOrientationsAnimations.forEach((orientation) => {
+        const rt = this.add.renderTexture(0, 0, 128, 64);
+        const texture = rt.saveTexture(`${player.id}-${orientation[0].substring(0, orientation[0].length - 3)}`);
+        let currX = 0;
+        orientation.forEach((animation) => {
+          if (player.appearance) {
+          const spriteSkin  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
+          `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${animation}.png`);
+          rt.draw(spriteSkin);
+          const spriteHair  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
+
+          `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${animation}.png`);
+          rt.draw(spriteHair);
+
+          const spriteShirt  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
+          `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${animation}.png`);
+          rt.draw(spriteShirt);
+
+          const spritePants  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
+          `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${animation}.png`);
+          rt.draw(spritePants);
+
+          texture.add(`${player.id}-${animation}`, 0, currX, 64, 32, 64);
+          currX += 32;
+          }
+        });
+      });
+
+      // Create the player's walking animations from the texture atlas. These are stored in the global
+      // animation manager so any sprite can access them.
+      const { anims } = this;
+      if (anims.exists(`${player.id}-misa-left-walk`)) {
+        anims.remove(`${player.id}-misa-left-walk`);
+        anims.remove(`${player.id}-misa-right-walk`);
+        anims.remove(`${player.id}-misa-front-walk`);
+        anims.remove(`${player.id}-misa-back-walk`);
+      }
+      anims.create({
+        key: `${player.id}-misa-left-walk`,
+        frames: anims.generateFrameNames(`${player.id}-misa-left-walk.`, {
+          prefix: `${player.id}-misa-left-walk.`,
+          start: 0,
+          end: 3,
+          zeroPad: 3,
+        }),
+        frameRate: 10,
+        repeat: -1,
+      });
+      anims.create({
+        key: `${player.id}-misa-right-walk`,
+        frames: anims.generateFrameNames(`${player.id}-misa-right-walk.`, {
+          prefix: `${player.id}-misa-right-walk.`,
+          start: 0,
+          end: 3,
+          zeroPad: 3,
+        }),
+        frameRate: 10,
+        repeat: -1,
+      });
+      anims.create({
+        key: `${player.id}-misa-front-walk`,
+        frames: anims.generateFrameNames(`${player.id}-misa-front-walk.`, {
+          prefix: `${player.id}-misa-front-walk.`,
+          start: 0,
+          end: 3,
+          zeroPad: 3,
+        }),
+        frameRate: 10,
+        repeat: -1,
+      });
+      anims.create({
+        key: `${player.id}-misa-back-walk`,
+        frames: anims.generateFrameNames(`${player.id}-misa-back-walk.`, {
+          prefix: `${player.id}-misa-back-walk.`,
+          start: 0,
+          end: 3,
+          zeroPad: 3,
+        }),
+        frameRate: 10,
+        repeat: -1,
+      });
+    }
   }
 
   /**
@@ -185,10 +316,11 @@ class CoveyGameScene extends Phaser.Scene {
     if (this.myPlayerID !== myPlayer.id && this.physics && player.location) {
       let { sprite } = myPlayer;
       if (!sprite) {
+        this.createPlayerSprites(myPlayer);
         sprite = this.physics.add
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore - JB todo
-          .sprite(0, 0, 'misa-front')
+          .sprite(0, 0, `${myPlayer.id}-misa-front`)
           .setSize(30, 40)
           .setOffset(0, 24);
         const label = this.add.text(0, 0, myPlayer.userName, {
@@ -205,10 +337,34 @@ class CoveyGameScene extends Phaser.Scene {
       myPlayer.label?.setX(player.location.x);
       myPlayer.label?.setY(player.location.y - 20);
       if (player.location.moving) {
-        sprite.anims.play(`misa-${player.location.rotation}-walk`, true);
+        sprite.anims.play(`${myPlayer.id}-misa-${player.location.rotation}-walk`, true);
       } else {
         sprite.anims.stop();
-        sprite.setTexture(`misa-${player.location.rotation}`);
+        sprite.setTexture(`${myPlayer.id}-misa-${player.location.rotation}`);
+      }
+    }
+  }
+
+
+  updatePlayerAppearances(players: Player[]) {
+    if (!this.ready) {
+      this.players = players;
+      return;
+    }
+    players.forEach(p => {
+      this.updatePlayerAppearance(p);
+    });
+  }
+
+  updatePlayerAppearance(player: Player) {
+    const myPlayer = this.players.find(p => p.id === player.id);
+    this.createPlayerSprites(player);
+    if (myPlayer) {
+      const { sprite } = myPlayer;
+      if (this.myPlayerID === player.id && this.player) {
+        this.player.sprite.setTexture(this.player.sprite.texture.key);
+      } else if(myPlayer && sprite && myPlayer.location) {
+        sprite.setTexture(`${player.id}-misa-${myPlayer.location.rotation}`);
       }
     }
   }
@@ -241,38 +397,38 @@ class CoveyGameScene extends Phaser.Scene {
 
       // Stop any previous movement from the last frame
       body.setVelocity(0);
-
       const primaryDirection = this.getNewMovementDirection();
       switch (primaryDirection) {
         case 'left':
           body.setVelocityX(-speed);
-          this.player.sprite.anims.play('misa-left-walk', true);
+          this.player.sprite.anims.play(`${this.myPlayerID}-misa-left-walk`, true);
           break;
         case 'right':
           body.setVelocityX(speed);
-          this.player.sprite.anims.play('misa-right-walk', true);
+          this.player.sprite.anims.play(`${this.myPlayerID}-misa-right-walk`, true);
           break;
         case 'front':
           body.setVelocityY(speed);
-          this.player.sprite.anims.play('misa-front-walk', true);
+          this.player.sprite.anims.play(`${this.myPlayerID}-misa-front-walk`, true);
           break;
         case 'back':
           body.setVelocityY(-speed);
-          this.player.sprite.anims.play('misa-back-walk', true);
+          this.player.sprite.anims.play(`${this.myPlayerID}-misa-back-walk`, true);
           break;
         default:
           // Not moving
           this.player.sprite.anims.stop();
           // If we were moving, pick and idle frame to use
           if (prevVelocity.x < 0) {
-            this.player.sprite.setTexture('misa-left');
+            this.player.sprite.setTexture(`${this.myPlayerID}-misa-left`);
           } else if (prevVelocity.x > 0) {
-            this.player.sprite.setTexture('misa-right');
+            this.player.sprite.setTexture(`${this.myPlayerID}-misa-right`);
           } else if (prevVelocity.y < 0) {
-            this.player.sprite.setTexture('misa-back');
-          } else if (prevVelocity.y > 0) this.player.sprite.setTexture('misa-front');
+            this.player.sprite.setTexture(`${this.myPlayerID}-misa-back`);
+          } else if (prevVelocity.y > 0) this.player.sprite.setTexture(`${this.myPlayerID}-misa-front`);
           break;
       }
+
 
       // Normalize and scale the velocity so that player can't move faster along a diagonal
       this.player.sprite.body.velocity.normalize().scale(speed);
@@ -316,8 +472,9 @@ class CoveyGameScene extends Phaser.Scene {
         }
         this.emitMovement(this.lastLocation);
       }
+      }
     }
-  }
+
 
   create() {
     const map = this.make.tilemap({ key: 'map' });
@@ -351,74 +508,10 @@ class CoveyGameScene extends Phaser.Scene {
 
     const veryAboveLayer = map.createLayer('Very Above Player', tileset, 0, 0);
 
-    // ADDED FOR CUSTOMIZATION -----------------
-    // Possible still orientations
-    const misaOrientations = ['misa-front', 'misa-back', 'misa-left', 'misa-right'];
-
-    // Rendering still orientations
-    // TODO: currently, the character properties are hardcoded. Uncomment commented out lines and test after connecting with the
-    // player customization UI
-    misaOrientations.forEach((orientationName) => {
-        // if (this.player.appearance) {
-        const rt = this.add.renderTexture(0, 0, 32, 64);
-        const texture = rt.saveTexture(orientationName);
-        const spriteHair  = this.add.sprite(16,32,'misa-customizable-atlas',
-        // `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}/${orientationName}.png`);
-
-        `hair/black/${orientationName}.png`);
-        rt.draw(spriteHair);
-        const spriteSkin  = this.add.sprite(16,32,'misa-customizable-atlas',
-        // `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}/${orientationName}.png`);
-
-        `skin/skin-0/${orientationName}.png`);
-        rt.draw(spriteSkin);
-        const spriteShirt  = this.add.sprite(16,32,'misa-customizable-atlas',
-        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
-
-        `shirt/white/${orientationName}.png`);
-        rt.draw(spriteShirt);
-        const spritePants  = this.add.sprite(16,32,'misa-customizable-atlas',
-        // `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}/${orientationName}.png`);
-        `pants/black/${orientationName}.png`);
-        rt.draw(spritePants);
-      //  }  
-    });
-
-    // Possible animated postions
-    const misaFrontAnimations = ['misa-front-walk.000', 'misa-front-walk.001', 'misa-front-walk.002', 'misa-front-walk.003'];
-    const misaBackAnimations = ['misa-back-walk.000', 'misa-back-walk.001', 'misa-back-walk.002', 'misa-back-walk.003'];
-    const misaLeftAnimations = ['misa-left-walk.000', 'misa-left-walk.001', 'misa-left-walk.002', 'misa-left-walk.003'];
-    const misaRightAnimations = ['misa-right-walk.000', 'misa-right-walk.001', 'misa-right-walk.002', 'misa-right-walk.003'];
-    const misaAllOrientationsAnimations = [misaFrontAnimations, misaBackAnimations, misaLeftAnimations, misaRightAnimations];
-
-    // Rendering textures with frames for animations.
-    // TODO: currently, the character properties are hardcoded. Uncomment commented out lines and test after connecting with the
-    // player customization UI
-    misaAllOrientationsAnimations.forEach((orientation) => {
-      const rt = this.add.renderTexture(0, 0, 128, 64);
-      const texture = rt.saveTexture(orientation[0].substring(0, orientation[0].length - 3));
-      let currX = 0;
-      orientation.forEach((animation) => {
-        const spriteHair  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `hair/black/${animation}.png`);
-        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
-        rt.draw(spriteHair);
-  
-        const spriteSkin  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `skin/skin-0/${animation}.png`);
-        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
-        rt.draw(spriteSkin);
-  
-        const spriteShirt  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `shirt/white/${animation}.png`);
-        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
-        rt.draw(spriteShirt);
-  
-        const spritePants  = this.add.sprite(currX + 16,32,'misa-customizable-atlas', `pants/black/${animation}.png`);
-        // `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}/${orientationName}.png`);
-        rt.draw(spritePants);
-  
-        texture.add(animation, 0, currX, 64, 32, 64);
-        currX += 32;
-      });
-    });
+    const myPlayer2 = this.players.find(p => p.id === this.myPlayerID);
+    if (myPlayer2) {
+      this.createPlayerSprites(myPlayer2);
+    }
 
     // ---------------------------------------------------
 
@@ -537,7 +630,7 @@ class CoveyGameScene extends Phaser.Scene {
     // has a bit of whitespace, so I'm using setSize & setOffset to control the size of the
     // player's body.
     const sprite = this.physics.add
-      .sprite(spawnPoint.x, spawnPoint.y, 'misa-front')
+      .sprite(spawnPoint.x, spawnPoint.y, `${this.myPlayerID}-misa-front`)
       .setSize(30, 40)
       .setOffset(0, 24);
     const label = this.add.text(spawnPoint.x, spawnPoint.y - 20, '(You)', {
@@ -550,6 +643,7 @@ class CoveyGameScene extends Phaser.Scene {
       sprite,
       label,
     };
+
 
     /* Configure physics overlap behavior for when the player steps into
     a transporter area. If you enter a transporter and press 'space', you'll
@@ -614,54 +708,6 @@ class CoveyGameScene extends Phaser.Scene {
     this.physics.add.collider(sprite, aboveLayer);
     this.physics.add.collider(sprite, onTheWallsLayer);
 
-    // Create the player's walking animations from the texture atlas. These are stored in the global
-    // animation manager so any sprite can access them.
-    const { anims } = this;
-    anims.create({
-      key: 'misa-left-walk',
-      frames: anims.generateFrameNames('misa-left-walk.', {
-        prefix: 'misa-left-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: 'misa-right-walk',
-      frames: anims.generateFrameNames('misa-right-walk.', {
-        prefix: 'misa-right-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: 'misa-front-walk',
-      frames: anims.generateFrameNames('misa-front-walk.', {
-        prefix: 'misa-front-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: 'misa-back-walk',
-      frames: anims.generateFrameNames('misa-back-walk.', {
-        prefix: 'misa-back-walk.',
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
     const camera = this.cameras.main;
     camera.startFollow(this.player.sprite);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -684,6 +730,27 @@ class CoveyGameScene extends Phaser.Scene {
       )
       .setScrollFactor(0)
       .setDepth(30);
+
+    // Button for user to change character appearance after joining town
+    this.add
+    .text(
+      this.game.scale.width - 120,
+      this.game.scale.height - 75,
+      `Change\nAvatar`,
+      {
+        font: '18px monospace',
+        color: '#000000',
+        padding: {
+          x: 20,
+          y: 10,
+        },
+        backgroundColor: '#ffffff',
+      },
+    )
+    .setScrollFactor(0)
+    .setDepth(30)
+    .setInteractive({ useHandCursor: true })
+    .on('pointerdown', this.onCustomizeOpen);
 
     this.ready = true;
     if (this.players.length) {
@@ -723,12 +790,14 @@ class CoveyGameScene extends Phaser.Scene {
 
 export default function WorldMap(): JSX.Element {
   const video = Video.instance();
-  const { emitMovement, myPlayerID } = useCoveyAppState();
+  const { emitMovement, myPlayerID, socket } = useCoveyAppState();
   const conversationAreas = useConversationAreas();
   const [gameScene, setGameScene] = useState<CoveyGameScene>();
   const [newConversation, setNewConversation] = useState<ConversationArea>();
   const playerMovementCallbacks = usePlayerMovement();
   const players = usePlayersInTown();
+  const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
+  const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>(loadAppearanceFromStorage());
 
   useEffect(() => {
     const config = {
@@ -751,7 +820,7 @@ export default function WorldMap(): JSX.Element {
 
     const game = new Phaser.Game(config);
     if (video) {
-      const newGameScene = new CoveyGameScene(video, emitMovement, setNewConversation, myPlayerID);
+      const newGameScene = new CoveyGameScene(video, emitMovement, setNewConversation, myPlayerID, onCustomizeOpen);
       setGameScene(newGameScene);
       game.scene.add('coveyBoard', newGameScene, true);
       video.pauseGame = () => {
@@ -764,7 +833,7 @@ export default function WorldMap(): JSX.Element {
     return () => {
       game.destroy(true);
     };
-  }, [video, emitMovement, setNewConversation, myPlayerID]);
+  }, [video, emitMovement, setNewConversation, myPlayerID, onCustomizeOpen]);
 
   useEffect(() => {
     const movementDispatcher = (player: ServerPlayer) => {
@@ -793,6 +862,18 @@ export default function WorldMap(): JSX.Element {
     }
   }, [video, newConversationModalOpen]);
 
+
+  useEffect(() => {
+    if(selectedAppearance && socket) {
+      saveAppearanceToStorage(selectedAppearance);
+      socket.emit('playerUpdateAppearance', selectedAppearance);
+    }
+  }, [selectedAppearance])
+
+  useEffect(() => {
+    gameScene?.updatePlayerAppearances(players)
+  }, [players])
+
   const newConversationModal = useMemo(() => {
     if (newConversation) {
       video?.pauseGame();
@@ -810,9 +891,18 @@ export default function WorldMap(): JSX.Element {
     return <></>;
   }, [video, newConversation, setNewConversation]);
 
+  const newCustomizationModal = useMemo(() => (
+    <AppearanceModal
+    isOpen={isCustomizeOpen}
+    onClose={onCustomizeClose}
+    appearance={selectedAppearance}
+    onAppearanceUpdated={setSelectedAppearance}/>
+  ), [isCustomizeOpen, onCustomizeClose]);
+
   return (
     <>
       {newConversationModal}
+      {newCustomizationModal}
       <div id='map-container' />
     </>
   );
