@@ -1,17 +1,21 @@
 import React, {useEffect, useReducer, useRef} from "react";
 import {
   Box,
-  Button, Heading,
+  Button,
+  Center,
+  Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
-  ModalContent, ModalFooter,
+  ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay, Spacer, Stack
 } from "@chakra-ui/react"
 import {PlayerAppearance} from "../../classes/Player/Player";
 import AppearanceItemGroup from "./AppearanceItemGroup";
 import AppearancePreview from "./AppearancePreview";
+import playerAppearances from "../../classes/Player/PlayerAppearances";
 
 interface AppearanceModalProps {
   /**
@@ -63,6 +67,17 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
     onClose();
   }
 
+  const randomPart = (part: keyof typeof playerAppearances) => Math.floor(Math.random() *
+    Object.keys(playerAppearances[part]).length);
+
+  const handleRandomAppearance = () => {
+    updateCurrentAppearance({
+      hair: randomPart("hair"),
+      pants: randomPart("pants"),
+      shirt: randomPart("shirt"),
+      skin: randomPart("skin")});
+  }
+
   return <Modal isOpen={isOpen} onClose={onClose} size="2xl">
     <ModalOverlay/>
     <ModalContent>
@@ -77,6 +92,11 @@ export default function AppearanceModal({isOpen, onClose, appearance, onAppearan
                 <AppearancePreview appearance={currentAppearance}/>
               </div>
             </div>
+            <Center>
+              <Button mt={2} onClick={handleRandomAppearance}>
+                Randomize
+              </Button>
+            </Center>
           </Box>
           <Spacer/>
           <Box>
