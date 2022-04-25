@@ -3,10 +3,10 @@ import { BoundingBox, ServerConversationArea } from '../client/TownsServiceClien
 import { ChatMessage, UserLocation } from '../CoveyTypes';
 import CoveyTownListener from '../types/CoveyTownListener';
 import Player from '../types/Player';
+import { PlayerAppearance } from '../types/PlayerAppearance';
 import PlayerSession from '../types/PlayerSession';
 import IVideoClient from './IVideoClient';
 import TwilioVideo from './TwilioVideo';
-import { PlayerAppearance } from '../types/PlayerAppearance';
 
 const friendlyNanoID = customAlphabet('1234567890ABCDEF', 8);
 
@@ -150,7 +150,9 @@ export default class CoveyTownController {
    * @param location New location for this player
    */
   updatePlayerLocation(player: Player, location: UserLocation): void {
-    const conversation = this.conversationAreas.find(conv => conv.label === location.conversationLabel);
+    const conversation = this.conversationAreas.find(
+      conv => conv.label === location.conversationLabel,
+    );
     const prevConversation = player.activeConversationArea;
 
     player.location = location;
@@ -178,10 +180,16 @@ export default class CoveyTownController {
    * @param player Player to remove from conversation area
    * @param conversation Conversation area to remove player from
    */
-  removePlayerFromConversationArea(player: Player, conversation: ServerConversationArea) : void {
-    conversation.occupantsByID.splice(conversation.occupantsByID.findIndex(p=>p === player.id), 1);
+  removePlayerFromConversationArea(player: Player, conversation: ServerConversationArea): void {
+    conversation.occupantsByID.splice(
+      conversation.occupantsByID.findIndex(p => p === player.id),
+      1,
+    );
     if (conversation.occupantsByID.length === 0) {
-      this._conversationAreas.splice(this._conversationAreas.findIndex(conv => conv === conversation), 1);
+      this._conversationAreas.splice(
+        this._conversationAreas.findIndex(conv => conv === conversation),
+        1,
+      );
       this._listeners.forEach(listener => listener.onConversationAreaDestroyed(conversation));
     } else {
       this._listeners.forEach(listener => listener.onConversationAreaUpdated(conversation));
@@ -202,21 +210,31 @@ export default class CoveyTownController {
    * @returns true if the conversation is successfully created, or false if not
    */
   addConversationArea(_conversationArea: ServerConversationArea): boolean {
-    if (this._conversationAreas.find(
-      eachExistingConversation => eachExistingConversation.label === _conversationArea.label,
-    ))
+    if (
+      this._conversationAreas.find(
+        eachExistingConversation => eachExistingConversation.label === _conversationArea.label,
+      )
+    )
       return false;
-    if (_conversationArea.topic === ''){
-      return false;
-    }
-    if (this._conversationAreas.find(eachExistingConversation =>
-      CoveyTownController.boxesOverlap(eachExistingConversation.boundingBox, _conversationArea.boundingBox)) !== undefined){
+    if (_conversationArea.topic === '') {
       return false;
     }
-    const newArea :ServerConversationArea = Object.assign(_conversationArea);
+    if (
+      this._conversationAreas.find(eachExistingConversation =>
+        CoveyTownController.boxesOverlap(
+          eachExistingConversation.boundingBox,
+          _conversationArea.boundingBox,
+        ),
+      ) !== undefined
+    ) {
+      return false;
+    }
+    const newArea: ServerConversationArea = Object.assign(_conversationArea);
     this._conversationAreas.push(newArea);
     const playersInThisConversation = this.players.filter(player => player.isWithin(newArea));
-    playersInThisConversation.forEach(player => {player.activeConversationArea = newArea;});
+    playersInThisConversation.forEach(player => {
+      player.activeConversationArea = newArea;
+    });
     newArea.occupantsByID = playersInThisConversation.map(player => player.id);
     this._listeners.forEach(listener => listener.onConversationAreaUpdated(newArea));
     return true;
@@ -229,12 +247,18 @@ export default class CoveyTownController {
    * @param box2
    * @returns true if the boxes overlap, otherwise false
    */
-  static boxesOverlap(box1: BoundingBox, box2: BoundingBox):boolean{
+  static boxesOverlap(box1: BoundingBox, box2: BoundingBox): boolean {
     // Helper function to extract the top left (x1,y1) and bottom right corner (x2,y2) of each bounding box
-    const toRectPoints = (box: BoundingBox) => ({ x1: box.x - box.width / 2, x2: box.x + box.width / 2, y1: box.y - box.height / 2, y2: box.y + box.height / 2 });
+    const toRectPoints = (box: BoundingBox) => ({
+      x1: box.x - box.width / 2,
+      x2: box.x + box.width / 2,
+      y1: box.y - box.height / 2,
+      y2: box.y + box.height / 2,
+    });
     const rect1 = toRectPoints(box1);
     const rect2 = toRectPoints(box2);
-    const noOverlap = rect1.x1 >= rect2.x2 || rect2.x1 >= rect1.x2 || rect1.y1 >= rect2.y2 || rect2.y1 >= rect1.y2;
+    const noOverlap =
+      rect1.x1 >= rect2.x2 || rect2.x1 >= rect1.x2 || rect1.y1 >= rect2.y2 || rect2.y1 >= rect1.y2;
     return !noOverlap;
   }
 
@@ -275,5 +299,4 @@ export default class CoveyTownController {
   disconnectAllPlayers(): void {
     this._listeners.forEach(listener => listener.onTownDestroyed());
   }
-
 }
