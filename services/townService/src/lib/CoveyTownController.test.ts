@@ -105,6 +105,19 @@ describe('CoveyTownController', () => {
         expect(listener.onPlayerAppearanceUpdated).toBeCalledWith(player),
       );
     });
+    it('should notify added listeners even if the players appearance is updated and the same as before', async () => {
+      const player = new Player(nanoid(), appearance);
+      await testingTown.addPlayer(player);
+      mockListeners.forEach(listener => testingTown.addTownListener(listener));
+      const newAppearance: PlayerAppearance = { hair: 0, shirt: 0, pants: 0, skin: 0 };
+      mockListeners.forEach(listener =>
+        expect(listener.onPlayerAppearanceUpdated).not.toBeCalled(),
+      );
+      testingTown.updatePlayerAppearance(player, newAppearance);
+      mockListeners.forEach(listener =>
+        expect(listener.onPlayerAppearanceUpdated).toBeCalledWith(player),
+      );
+    });
     it('should not notify removed listeners of player movement when updatePlayerLocation is called', async () => {
       const player = new Player('test player', appearance);
       await testingTown.addPlayer(player);
@@ -371,7 +384,7 @@ describe('CoveyTownController', () => {
       const townName = `updatePlayerLocation test town ${nanoid()}`;
       testingTown = new CoveyTownController(townName, false);
     });
-    it('should have a players appearance when a player is created', () => {
+    it('should have a players appearance defined when a player is created', () => {
       const appearance: PlayerAppearance = { hair: 0, shirt: 0, pants: 0, skin: 0 };
       const player = new Player(nanoid(), appearance);
       expect(player.appearance.hair).toBeDefined();
