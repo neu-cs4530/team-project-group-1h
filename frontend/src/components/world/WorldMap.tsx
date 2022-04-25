@@ -1,16 +1,16 @@
 import Phaser from 'phaser';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDisclosure } from '@chakra-ui/react';
+import React, {useEffect, useMemo, useState} from 'react';
+import {useDisclosure} from '@chakra-ui/react';
 import BoundingBox from '../../classes/BoundingBox';
 import ConversationArea from '../../classes/ConversationArea';
-import Player, { ServerPlayer, UserLocation, PlayerAppearance } from '../../classes/Player/Player';
+import Player, {ServerPlayer, UserLocation, PlayerAppearance} from '../../classes/Player/Player';
 import Video from '../../classes/Video/Video';
 import useConversationAreas from '../../hooks/useConversationAreas';
 import useCoveyAppState from '../../hooks/useCoveyAppState';
 import usePlayerMovement from '../../hooks/usePlayerMovement';
 import usePlayersInTown from '../../hooks/usePlayersInTown';
 import AppearanceModal from '../PlayerAppearance/AppearanceModal';
-import { Callback } from '../VideoCall/VideoFrontend/types';
+import {Callback} from '../VideoCall/VideoFrontend/types';
 import NewConversationModal from './NewCoversationModal';
 import playerAppearances, {
   loadAppearanceFromStorage,
@@ -114,29 +114,26 @@ class CoveyGameScene extends Phaser.Scene {
     const misaAllOrientationsAnimations = [misaFrontAnimations, misaBackAnimations, misaLeftAnimations, misaRightAnimations];
     if (player) {
       misaOrientations.forEach((orientationName) => {
-         if (player.appearance) {
-            const rt = this.add.renderTexture(0, 0, 32, 64);
-            const texture = rt.saveTexture(`${player.id}-${orientationName}`);
+        if (player.appearance) {
+          const rt = this.add.renderTexture(0, 0, 32, 64);
+          const texture = rt.saveTexture(`${player.id}-${orientationName}`);
 
-            const spriteSkin  = this.add.sprite(16,32,'misa-customizable-atlas',
+          const spriteSkin = this.add.sprite(16, 32, 'misa-customizable-atlas',
             `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${orientationName}.png`);
+          rt.draw(spriteSkin);
 
-            rt.draw(spriteSkin);
-
-            const spriteHair  = this.add.sprite(16,32,'misa-customizable-atlas',
-            `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${orientationName}.png`);
-
-            rt.draw(spriteHair);
-
-            const spriteShirt  = this.add.sprite(16,32,'misa-customizable-atlas',
+          const spriteShirt = this.add.sprite(16, 32, 'misa-customizable-atlas',
             `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${orientationName}.png`);
+          rt.draw(spriteShirt);
 
-            rt.draw(spriteShirt);
-            const spritePants  = this.add.sprite(16,32,'misa-customizable-atlas',
+          const spritePants = this.add.sprite(16, 32, 'misa-customizable-atlas',
             `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${orientationName}.png`);
+          rt.draw(spritePants);
 
-            rt.draw(spritePants);
-          }
+          const spriteHair = this.add.sprite(16, 32, 'misa-customizable-atlas',
+            `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${orientationName}.png`);
+          rt.draw(spriteHair);
+        }
       });
 
       // Rendering textures with frames for animations.
@@ -146,31 +143,31 @@ class CoveyGameScene extends Phaser.Scene {
         let currX = 0;
         orientation.forEach((animation) => {
           if (player.appearance) {
-          const spriteSkin  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
-          `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${animation}.png`);
-          rt.draw(spriteSkin);
-          const spriteHair  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
+            const spriteSkin = this.add.sprite(currX + 16, 32, 'misa-customizable-atlas',
+              `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${animation}.png`);
+            rt.draw(spriteSkin);
 
-          `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${animation}.png`);
-          rt.draw(spriteHair);
+            const spriteShirt = this.add.sprite(currX + 16, 32, 'misa-customizable-atlas',
+              `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${animation}.png`);
+            rt.draw(spriteShirt);
 
-          const spriteShirt  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
-          `${playerAppearances.shirt[player.appearance.shirt].spriteNamePrefix}${animation}.png`);
-          rt.draw(spriteShirt);
+            const spritePants = this.add.sprite(currX + 16, 32, 'misa-customizable-atlas',
+              `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${animation}.png`);
+            rt.draw(spritePants);
 
-          const spritePants  = this.add.sprite(currX + 16,32,'misa-customizable-atlas',
-          `${playerAppearances.pants[player.appearance.pants].spriteNamePrefix}${animation}.png`);
-          rt.draw(spritePants);
+            const spriteHair = this.add.sprite(currX + 16, 32, 'misa-customizable-atlas',
+              `${playerAppearances.hair[player.appearance.hair].spriteNamePrefix}${animation}.png`);
+            rt.draw(spriteHair);
 
-          texture.add(`${player.id}-${animation}`, 0, currX, 64, 32, 64);
-          currX += 32;
+            texture.add(`${player.id}-${animation}`, 0, currX, 64, 32, 64);
+            currX += 32;
           }
         });
       });
 
       // Create the player's walking animations from the texture atlas. These are stored in the global
       // animation manager so any sprite can access them.
-      const { anims } = this;
+      const {anims} = this;
       if (anims.exists(`${player.id}-misa-left-walk`)) {
         anims.remove(`${player.id}-misa-left-walk`);
         anims.remove(`${player.id}-misa-right-walk`);
@@ -301,7 +298,7 @@ class CoveyGameScene extends Phaser.Scene {
   updatePlayerLocation(player: Player) {
     let myPlayer = this.players.find(p => p.id === player.id);
     if (!myPlayer) {
-      let { location } = player;
+      let {location} = player;
       if (!location) {
         location = {
           rotation: 'back',
@@ -314,7 +311,7 @@ class CoveyGameScene extends Phaser.Scene {
       this.players.push(myPlayer);
     }
     if (this.myPlayerID !== myPlayer.id && this.physics && player.location) {
-      let { sprite } = myPlayer;
+      let {sprite} = myPlayer;
       if (!sprite) {
         this.createPlayerSprites(myPlayer);
         sprite = this.physics.add
@@ -360,10 +357,10 @@ class CoveyGameScene extends Phaser.Scene {
     const myPlayer = this.players.find(p => p.id === player.id);
     this.createPlayerSprites(player);
     if (myPlayer) {
-      const { sprite } = myPlayer;
+      const {sprite} = myPlayer;
       if (this.myPlayerID === player.id && this.player) {
         this.player.sprite.setTexture(this.player.sprite.texture.key);
-      } else if(myPlayer && sprite && myPlayer.location) {
+      } else if (myPlayer && sprite && myPlayer.location) {
         sprite.setTexture(`${player.id}-misa-${myPlayer.location.rotation}`);
       }
     }
@@ -456,7 +453,7 @@ class CoveyGameScene extends Phaser.Scene {
         this.lastLocation.rotation = primaryDirection || 'front';
         this.lastLocation.moving = isMoving;
         if (this.currentConversationArea) {
-          if(this.currentConversationArea.conversationArea){
+          if (this.currentConversationArea.conversationArea) {
             this.lastLocation.conversationLabel = this.currentConversationArea.label;
           }
           if (
@@ -472,12 +469,12 @@ class CoveyGameScene extends Phaser.Scene {
         }
         this.emitMovement(this.lastLocation);
       }
-      }
     }
+  }
 
 
   create() {
-    const map = this.make.tilemap({ key: 'map' });
+    const map = this.make.tilemap({key: 'map'});
 
     /* Parameters are the name you gave the tileset in Tiled and then the key of the
      tileset image in Phaser's cache (i.e. the name you used in preload)
@@ -498,13 +495,13 @@ class CoveyGameScene extends Phaser.Scene {
     const belowLayer = map.createLayer('Below Player', tileset, 0, 0);
     const wallsLayer = map.createLayer('Walls', tileset, 0, 0);
     const onTheWallsLayer = map.createLayer('On The Walls', tileset, 0, 0);
-    wallsLayer.setCollisionByProperty({ collides: true });
-    onTheWallsLayer.setCollisionByProperty({ collides: true });
+    wallsLayer.setCollisionByProperty({collides: true});
+    onTheWallsLayer.setCollisionByProperty({collides: true});
 
     const worldLayer = map.createLayer('World', tileset, 0, 0);
-    worldLayer.setCollisionByProperty({ collides: true });
+    worldLayer.setCollisionByProperty({collides: true});
     const aboveLayer = map.createLayer('Above Player', tileset, 0, 0);
-    aboveLayer.setCollisionByProperty({ collides: true });
+    aboveLayer.setCollisionByProperty({collides: true});
 
     const veryAboveLayer = map.createLayer('Very Above Player', tileset, 0, 0);
 
@@ -531,7 +528,7 @@ class CoveyGameScene extends Phaser.Scene {
     ) as unknown) as Phaser.GameObjects.Components.Transform;
 
     // Find all of the transporters, add them to the physics engine
-    const transporters = map.createFromObjects('Objects', { name: 'transporter' });
+    const transporters = map.createFromObjects('Objects', {name: 'transporter'});
     this.physics.world.enable(transporters);
 
     // For each of the transporters (rectangle objects), we need to tweak their location on the scene
@@ -550,7 +547,7 @@ class CoveyGameScene extends Phaser.Scene {
     );
     const conversationSprites = map.createFromObjects(
       'Objects',
-      conversationAreaObjects.map(obj => ({ id: obj.id })),
+      conversationAreaObjects.map(obj => ({id: obj.id})),
     );
     this.physics.world.enable(conversationSprites);
     conversationSprites.forEach(conversation => {
@@ -560,13 +557,13 @@ class CoveyGameScene extends Phaser.Scene {
         sprite.x - sprite.displayWidth / 2,
         sprite.y - sprite.displayHeight / 2,
         conversation.name,
-        { color: '#FFFFFF', backgroundColor: '#000000' },
+        {color: '#FFFFFF', backgroundColor: '#000000'},
       );
       const topicText = this.add.text(
         sprite.x - sprite.displayWidth / 2,
         sprite.y + sprite.displayHeight / 2,
         '(No Topic)',
-        { color: '#000000' },
+        {color: '#000000'},
       );
       sprite.setTintFill();
       sprite.setAlpha(0.3);
@@ -584,7 +581,7 @@ class CoveyGameScene extends Phaser.Scene {
         this.game.scale.width / 2,
         this.game.scale.height / 2,
         "You've found an empty conversation area!\nTell others what you'd like to talk about here\nby providing a topic label for the conversation.\nSpecify a topic by pressing the spacebar.",
-        { color: '#000000', backgroundColor: '#FFFFFF' },
+        {color: '#000000', backgroundColor: '#FFFFFF'},
       )
       .setScrollFactor(0)
       .setDepth(30);
@@ -733,24 +730,24 @@ class CoveyGameScene extends Phaser.Scene {
 
     // Button for user to change character appearance after joining town
     this.add
-    .text(
-      this.game.scale.width - 120,
-      this.game.scale.height - 75,
-      `Change\nAvatar`,
-      {
-        font: '18px monospace',
-        color: '#000000',
-        padding: {
-          x: 20,
-          y: 10,
+      .text(
+        this.game.scale.width - 120,
+        this.game.scale.height - 75,
+        `Change\nAvatar`,
+        {
+          font: '18px monospace',
+          color: '#000000',
+          padding: {
+            x: 20,
+            y: 10,
+          },
+          backgroundColor: '#ffffff',
         },
-        backgroundColor: '#ffffff',
-      },
-    )
-    .setScrollFactor(0)
-    .setDepth(30)
-    .setInteractive({ useHandCursor: true })
-    .on('pointerdown', this.onCustomizeOpen);
+      )
+      .setScrollFactor(0)
+      .setDepth(30)
+      .setInteractive({useHandCursor: true})
+      .on('pointerdown', this.onCustomizeOpen);
 
     this.ready = true;
     if (this.players.length) {
@@ -766,7 +763,7 @@ class CoveyGameScene extends Phaser.Scene {
   pause() {
     if (!this.paused) {
       this.paused = true;
-      if(this.player){
+      if (this.player) {
         this.player?.sprite.anims.stop();
         const body = this.player.sprite.body as Phaser.Physics.Arcade.Body;
         body.setVelocity(0);
@@ -790,13 +787,13 @@ class CoveyGameScene extends Phaser.Scene {
 
 export default function WorldMap(): JSX.Element {
   const video = Video.instance();
-  const { emitMovement, myPlayerID, socket } = useCoveyAppState();
+  const {emitMovement, myPlayerID, socket} = useCoveyAppState();
   const conversationAreas = useConversationAreas();
   const [gameScene, setGameScene] = useState<CoveyGameScene>();
   const [newConversation, setNewConversation] = useState<ConversationArea>();
   const playerMovementCallbacks = usePlayerMovement();
   const players = usePlayersInTown();
-  const { isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose } = useDisclosure();
+  const {isOpen: isCustomizeOpen, onOpen: onCustomizeOpen, onClose: onCustomizeClose} = useDisclosure();
   const [selectedAppearance, setSelectedAppearance] = useState<PlayerAppearance>(loadAppearanceFromStorage());
 
   useEffect(() => {
@@ -807,13 +804,13 @@ export default function WorldMap(): JSX.Element {
       pixelArt: true,
       autoRound: 10,
       minWidth: 800,
-      fps: { target: 30 },
+      fps: {target: 30},
       powerPreference: 'high-performance',
       minHeight: 600,
       physics: {
         default: 'arcade',
         arcade: {
-          gravity: { y: 0 }, // Top down game, so no gravity
+          gravity: {y: 0}, // Top down game, so no gravity
         },
       },
     };
@@ -864,7 +861,7 @@ export default function WorldMap(): JSX.Element {
 
 
   useEffect(() => {
-    if(selectedAppearance && socket) {
+    if (selectedAppearance && socket) {
       saveAppearanceToStorage(selectedAppearance);
       socket.emit('playerUpdateAppearance', selectedAppearance);
     }
@@ -893,17 +890,17 @@ export default function WorldMap(): JSX.Element {
 
   const newCustomizationModal = useMemo(() => (
     <AppearanceModal
-    isOpen={isCustomizeOpen}
-    onClose={onCustomizeClose}
-    appearance={selectedAppearance}
-    onAppearanceUpdated={setSelectedAppearance}/>
+      isOpen={isCustomizeOpen}
+      onClose={onCustomizeClose}
+      appearance={selectedAppearance}
+      onAppearanceUpdated={setSelectedAppearance}/>
   ), [isCustomizeOpen, onCustomizeClose]);
 
   return (
     <>
       {newConversationModal}
       {newCustomizationModal}
-      <div id='map-container' />
+      <div id='map-container'/>
     </>
   );
 }
