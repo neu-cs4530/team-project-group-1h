@@ -145,7 +145,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
       it('includes a connect button, which calls Video.setup, doLogin, and connect with the entered username and coveyTownID (public town)', async () => {
         const coveyTownID = nanoid();
         const userName = nanoid();
-        const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+        const defaultAppearance = {"hair": 4, "pants": 0, "shirt": 4, "skin": 1};
 
         // Configure mocks
         mockVideoSetup.mockReset();
@@ -199,7 +199,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
         const coveyTownID = nanoid();
         const userName = nanoid();
         const errorMessage = `Err${nanoid()}`;
-        const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+        const defaultAppearance = {"hair": 4, "pants": 0, "shirt": 4, "skin": 1};
 
         // Variant one: throw error in Video.setup
 
@@ -309,7 +309,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
               const button = within(row)
                 .getByRole('button');
               const username = nanoid();
-              const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+              const defaultAppearance = {"hair": 4, "pants": 0, "shirt": 4, "skin": 1};
 
               fireEvent.change(userNameField, { target: { value: username } });
               await waitFor(() => {
@@ -402,7 +402,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
               const button = within(row)
                 .getByRole('button');
               const username = nanoid();
-              const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+              const defaultAppearance = {"hair": 4, "pants": 0, "shirt": 4, "skin": 1};
 
               fireEvent.change(userNameField, { target: { value: username } });
               await waitFor(() => {

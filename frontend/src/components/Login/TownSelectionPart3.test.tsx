@@ -249,7 +249,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
           const roomPassword = nanoid();
           const userName = nanoid();
           const townName = nanoid();
-          const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+          const defaultAppearance = {"hair": 4, "pants": 0, "shirt": 4, "skin": 1};
 
           // Configure mocks
           mockVideoSetup.mockReset();

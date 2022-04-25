@@ -379,5 +379,19 @@ describe('CoveyTownController', () => {
       expect(player.appearance.pants).toBeDefined();
       expect(player.appearance.skin).toBeDefined();
     });
+    it('should change the players appearance values when change appearance is called', async () => {
+      const player = new Player(nanoid(), { hair: 0, shirt: 0, pants: 0, skin: 0 });
+      await testingTown.addPlayer(player);
+      expect(player.appearance.hair).toEqual(0);
+      expect(player.appearance.shirt).toEqual(0);
+      expect(player.appearance.pants).toEqual(0);
+      expect(player.appearance.skin).toEqual(0);
+
+      testingTown.updatePlayerAppearance(player, { hair: 1, shirt: 1, pants: 1, skin: 1 });
+      expect(player.appearance.hair).toEqual(1);
+      expect(player.appearance.shirt).toEqual(1);
+      expect(player.appearance.pants).toEqual(1);
+      expect(player.appearance.skin).toEqual(1);
+    });
   });
 });
