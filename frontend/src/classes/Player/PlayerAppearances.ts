@@ -99,10 +99,10 @@ const playerAppearances: { [k in keyof PlayerAppearance]: { [key: number]: Appea
 export default playerAppearances;
 
 export const DEFAULT_APPEARANCE: PlayerAppearance = {
-  hair: 0,
+  hair: 4,
   pants: 0,
-  shirt: 0,
-  skin: 0,
+  shirt: 4,
+  skin: 1,
 };
 
 const APPEARANCE_LOCALSTORAGE_KEY = "coveytown-prev-appearance";
