@@ -12,6 +12,10 @@ describe('AppearanceModal', () => {
     useState: jest.fn(),
   }))
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   const Wrapper = () => {
     const {
       onClose: onCustomizeClose
