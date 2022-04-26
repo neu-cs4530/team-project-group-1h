@@ -55,6 +55,18 @@ describe('AppearanceModal', () => {
     expect(setState).toHaveBeenCalledWith({"hair": 1, "pants": 0, "shirt": 0, "skin": 0});
   });
 
+  it('click options and save saves', async () => {
+    const {getByText, getByLabelText} = render(<Wrapper/>)
+    fireEvent.click(getByLabelText("hair-Long Blonde"));
+    expect(getByLabelText("hair-Long Blonde")).toBeChecked()
+
+    fireEvent.click(getByLabelText("shirt-Red"));
+    expect(getByLabelText("shirt-Red")).toBeChecked()
+
+    fireEvent.click(getByText("Save"));
+    expect(setState).toHaveBeenCalledWith({"hair": 1, "pants": 0, "shirt": 3, "skin": 0});
+  });
+
   it('click option and cancel does not save', async () => {
     const {getByText, getByLabelText} = render(<Wrapper/>)
     fireEvent.click(getByLabelText("hair-Long Blonde"));
