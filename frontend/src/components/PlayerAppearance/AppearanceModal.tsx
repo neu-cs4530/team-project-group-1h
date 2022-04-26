@@ -15,7 +15,7 @@ import {
 import {PlayerAppearance} from "../../classes/Player/Player";
 import AppearanceItemGroup from "./AppearanceItemGroup";
 import AppearancePreview from "./AppearancePreview";
-import playerAppearances, {randomPart} from "../../classes/Player/PlayerAppearances";
+import {randomPart} from "../../classes/Player/PlayerAppearances";
 
 interface AppearanceModalProps {
   /**

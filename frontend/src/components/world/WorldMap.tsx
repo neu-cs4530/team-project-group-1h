@@ -116,7 +116,7 @@ class CoveyGameScene extends Phaser.Scene {
       misaOrientations.forEach((orientationName) => {
         if (player.appearance) {
           const rt = this.add.renderTexture(0, 0, 32, 64);
-          const texture = rt.saveTexture(`${player.id}-${orientationName}`);
+          rt.saveTexture(`${player.id}-${orientationName}`);
 
           const spriteSkin = this.add.sprite(16, 32, 'misa-customizable-atlas',
             `${playerAppearances.skin[player.appearance.skin].spriteNamePrefix}${orientationName}.png`);
@@ -865,11 +865,11 @@ export default function WorldMap(): JSX.Element {
       saveAppearanceToStorage(selectedAppearance);
       socket.emit('playerUpdateAppearance', selectedAppearance);
     }
-  }, [selectedAppearance])
+  }, [selectedAppearance, socket])
 
   useEffect(() => {
     gameScene?.updatePlayerAppearances(players)
-  }, [players])
+  }, [gameScene, players])
 
   const newConversationModal = useMemo(() => {
     if (newConversation) {
@@ -894,7 +894,7 @@ export default function WorldMap(): JSX.Element {
       onClose={onCustomizeClose}
       appearance={selectedAppearance}
       onAppearanceUpdated={setSelectedAppearance}/>
-  ), [isCustomizeOpen, onCustomizeClose]);
+  ), [selectedAppearance, isCustomizeOpen, onCustomizeClose]);
 
   return (
     <>
