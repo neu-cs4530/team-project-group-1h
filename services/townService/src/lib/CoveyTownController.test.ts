@@ -6,7 +6,7 @@ import { UserLocation } from '../CoveyTypes';
 import { townSubscriptionHandler } from '../requestHandlers/CoveyTownRequestHandlers';
 import CoveyTownListener from '../types/CoveyTownListener';
 import Player from '../types/Player';
-import { PlayerAppearance } from '../types/PlayerAppearance';
+import { DEFAULT_APPEARANCE, PlayerAppearance } from '../types/PlayerAppearance';
 import PlayerSession from '../types/PlayerSession';
 import CoveyTownController from './CoveyTownController';
 import CoveyTownsStore from './CoveyTownsStore';
@@ -109,7 +109,7 @@ describe('CoveyTownController', () => {
       const player = new Player(nanoid(), appearance);
       await testingTown.addPlayer(player);
       mockListeners.forEach(listener => testingTown.addTownListener(listener));
-      const newAppearance: PlayerAppearance = { hair: 0, shirt: 0, pants: 0, skin: 0 };
+      const newAppearance: PlayerAppearance = DEFAULT_APPEARANCE;
       mockListeners.forEach(listener =>
         expect(listener.onPlayerAppearanceUpdated).not.toBeCalled(),
       );
