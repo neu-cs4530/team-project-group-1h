@@ -10,6 +10,7 @@ import TownSelection from './TownSelection';
 import Video from '../../classes/Video/Video';
 import CoveyAppContext from '../../contexts/CoveyAppContext';
 import { ChatProvider } from '../VideoCall/VideoFrontend/components/ChatProvider'
+import {DEFAULT_APPEARANCE} from "../../classes/Player/PlayerAppearances";
 
 const mockConnect = jest.fn(() => Promise.resolve());
 
@@ -249,7 +250,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
           const roomPassword = nanoid();
           const userName = nanoid();
           const townName = nanoid();
-          const defaultAppearance = {"hair": 4, "pants": 0, "shirt": 4, "skin": 1};
+          const defaultAppearance = DEFAULT_APPEARANCE;
 
           // Configure mocks
           mockVideoSetup.mockReset();

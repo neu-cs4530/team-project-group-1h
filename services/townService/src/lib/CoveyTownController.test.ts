@@ -6,7 +6,7 @@ import { UserLocation } from '../CoveyTypes';
 import { townSubscriptionHandler } from '../requestHandlers/CoveyTownRequestHandlers';
 import CoveyTownListener from '../types/CoveyTownListener';
 import Player from '../types/Player';
-import { PlayerAppearance } from '../types/PlayerAppearance';
+import { DEFAULT_APPEARANCE, PlayerAppearance } from '../types/PlayerAppearance';
 import PlayerSession from '../types/PlayerSession';
 import CoveyTownController from './CoveyTownController';
 import CoveyTownsStore from './CoveyTownsStore';
@@ -97,6 +97,19 @@ describe('CoveyTownController', () => {
       await testingTown.addPlayer(player);
       mockListeners.forEach(listener => testingTown.addTownListener(listener));
       const newAppearance: PlayerAppearance = { hair: 1, shirt: 0, pants: 0, skin: 0 };
+      mockListeners.forEach(listener =>
+        expect(listener.onPlayerAppearanceUpdated).not.toBeCalled(),
+      );
+      testingTown.updatePlayerAppearance(player, newAppearance);
+      mockListeners.forEach(listener =>
+        expect(listener.onPlayerAppearanceUpdated).toBeCalledWith(player),
+      );
+    });
+    it('should notify added listeners even if the players appearance is updated and the same as before', async () => {
+      const player = new Player(nanoid(), appearance);
+      await testingTown.addPlayer(player);
+      mockListeners.forEach(listener => testingTown.addTownListener(listener));
+      const newAppearance: PlayerAppearance = DEFAULT_APPEARANCE;
       mockListeners.forEach(listener =>
         expect(listener.onPlayerAppearanceUpdated).not.toBeCalled(),
       );
@@ -371,7 +384,7 @@ describe('CoveyTownController', () => {
       const townName = `updatePlayerLocation test town ${nanoid()}`;
       testingTown = new CoveyTownController(townName, false);
     });
-    it('should have a players appearance when a player is created', async () => {
+    it('should have a players appearance defined when a player is created', async () => {
       const appearance: PlayerAppearance = { hair: 0, shirt: 0, pants: 0, skin: 0 };
       const player = new Player(nanoid(), appearance);
       await testingTown.addPlayer(player);
@@ -379,6 +392,20 @@ describe('CoveyTownController', () => {
       expect(player.appearance.shirt).toBeDefined();
       expect(player.appearance.pants).toBeDefined();
       expect(player.appearance.skin).toBeDefined();
+    });
+    it('should change the players appearance values when change appearance is called', async () => {
+      const player = new Player(nanoid(), { hair: 0, shirt: 0, pants: 0, skin: 0 });
+      await testingTown.addPlayer(player);
+      expect(player.appearance.hair).toEqual(0);
+      expect(player.appearance.shirt).toEqual(0);
+      expect(player.appearance.pants).toEqual(0);
+      expect(player.appearance.skin).toEqual(0);
+
+      testingTown.updatePlayerAppearance(player, { hair: 1, shirt: 1, pants: 1, skin: 1 });
+      expect(player.appearance.hair).toEqual(1);
+      expect(player.appearance.shirt).toEqual(1);
+      expect(player.appearance.pants).toEqual(1);
+      expect(player.appearance.skin).toEqual(1);
     });
   });
 });

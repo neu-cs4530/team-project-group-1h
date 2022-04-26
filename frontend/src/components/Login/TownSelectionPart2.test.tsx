@@ -10,6 +10,7 @@ import TownSelection from './TownSelection';
 import Video from '../../classes/Video/Video';
 import CoveyAppContext from '../../contexts/CoveyAppContext';
 import { ChatProvider } from '../VideoCall/VideoFrontend/components/ChatProvider'
+import {DEFAULT_APPEARANCE} from "../../classes/Player/PlayerAppearances";
 
 const mockConnect = jest.fn(() => Promise.resolve());
 
@@ -145,7 +146,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
       it('includes a connect button, which calls Video.setup, doLogin, and connect with the entered username and coveyTownID (public town)', async () => {
         const coveyTownID = nanoid();
         const userName = nanoid();
-        const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+        const defaultAppearance = DEFAULT_APPEARANCE;
 
         // Configure mocks
         mockVideoSetup.mockReset();
@@ -199,7 +200,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
         const coveyTownID = nanoid();
         const userName = nanoid();
         const errorMessage = `Err${nanoid()}`;
-        const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+        const defaultAppearance = DEFAULT_APPEARANCE;
 
         // Variant one: throw error in Video.setup
 
@@ -309,7 +310,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
               const button = within(row)
                 .getByRole('button');
               const username = nanoid();
-              const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+              const defaultAppearance = DEFAULT_APPEARANCE;
 
               fireEvent.change(userNameField, { target: { value: username } });
               await waitFor(() => {
@@ -402,7 +403,7 @@ describe('Town Selection - depends on Part 1 passing', () => {
               const button = within(row)
                 .getByRole('button');
               const username = nanoid();
-              const defaultAppearance = {"hair": 0, "pants": 0, "shirt": 0, "skin": 0};
+              const defaultAppearance = DEFAULT_APPEARANCE;
 
               fireEvent.change(userNameField, { target: { value: username } });
               await waitFor(() => {
