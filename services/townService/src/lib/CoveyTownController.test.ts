@@ -384,9 +384,10 @@ describe('CoveyTownController', () => {
       const townName = `updatePlayerLocation test town ${nanoid()}`;
       testingTown = new CoveyTownController(townName, false);
     });
-    it('should have a players appearance defined when a player is created', () => {
+    it('should have a players appearance defined when a player is created', async () => {
       const appearance: PlayerAppearance = { hair: 0, shirt: 0, pants: 0, skin: 0 };
       const player = new Player(nanoid(), appearance);
+      await testingTown.addPlayer(player);
       expect(player.appearance.hair).toBeDefined();
       expect(player.appearance.shirt).toBeDefined();
       expect(player.appearance.pants).toBeDefined();

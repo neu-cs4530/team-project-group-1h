@@ -103,7 +103,7 @@ export default function TownSelection({ doLogin }: TownSelectionProps): JSX.Elem
         status: 'error'
       })
     }
-  }, [doLogin, userName, videoConnect, toast]);
+  }, [doLogin, userName, selectedAppearance, videoConnect, toast]);
 
   const handleCreate = async () => {
     if (!userName || userName.length === 0) {
